@@ -13,7 +13,7 @@ def parse(filename):
 	 	for line in f:
 	 		if feature == False: #store the user input password
 	 			user_input_pass = line
-	 			list_passwords.append(user_input_pass)
+	 			list_passwords.append(user_input_pass.rstrip("\n"))
 
 	 			feature = True
 	 		else:
@@ -21,8 +21,12 @@ def parse(filename):
 	 			for l in input_features:
 	 				password_features.append(int(l))
 	 			features.append(password_features)
+				password_features=[]
 	 			feature = False
 	 		
 	ret_list = [list_passwords, features]
 	return ret_list
 
+#Run the main function
+if __name__ == '__main__':
+    parse('input-file.txt')
