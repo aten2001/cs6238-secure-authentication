@@ -1,21 +1,13 @@
 #!/usr/bin/python
+import parser,sys
 
 def main():
 	#open the input file for reading
-	parser()
-
-
-#reads from file and passes results to the login_handler
-def parser():
-	#do something
-	print "parsing file"
-	with open('input-file.txt','r') as f:
-		for line in f:
-			print line
-
-#takes in password and feature list
-def login_handler(user_password, list_features):
-	print "login handler"
+	user_input = parser.parse(sys.argv[1])
+	#store the user's input password
+	user_input_pass = user_input[1]
+	#store the list of features
+	list_features = user_input[0]
 
 
 

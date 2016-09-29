@@ -1,0 +1,5 @@
+TODO
+# create a polynomial
+# Encryption/Decryption of History File
+# Initialization
+#
