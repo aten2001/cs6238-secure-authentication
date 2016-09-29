@@ -14,15 +14,15 @@ def parse(filename):
 	 		if feature == False: #store the user input password
 	 			user_input_pass = line
 	 			list_passwords.append(user_input_pass)
+
 	 			feature = True
 	 		else:
 	 			input_features = line.split(',') # split the input on comma delimeted
 	 			for l in input_features:
-	 				password_features.append(l)
+	 				password_features.append(int(l))
 	 			features.append(password_features)
 	 			feature = False
 	 		
-
-	
 	ret_list = [list_passwords, features]
 	return ret_list
+
