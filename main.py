@@ -9,10 +9,10 @@ def main():
 
 	history = init_history.initialize_history(user_input)
 	#will compute the history of the user's input and creates a history file
-    # need to choose a hardened password
-    hpwd = math.choose_hpwd()
+	# need to choose a hardened password
+	hpwd = math.choose_hpwd()
 
-    encrypted_history_file = compute_history.compute_history(history, 50)
+	encrypted_history_file = compute_history.compute_history(history, hpwd)
 
 
 	#check the rest of the user's inputs and see if he or she logged in correctly
@@ -21,5 +21,5 @@ def main():
 
 #Run the main function
 if __name__ == '__main__':
-    main()
+	main()
 
