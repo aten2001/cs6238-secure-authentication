@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import parser,sys,init_history
+import parser,sys,init_history,compute_history,math
 
 def main():
 	#open the input file for reading
@@ -8,11 +8,14 @@ def main():
 	#store the user's input passwords
 
 	history = init_history.initialize_history(user_input)
-	#store the user's input password
+	#will compute the history of the user's input and creates a history file
+    # need to choose a hardened password
+    hpwd = math.choose_hpwd()
 
-	list_pass = user_input[1]
-	#store the list of features
-	list_features = user_input[0]
+    encrypted_history_file = compute_history.compute_history(history, 50)
+
+
+	#check the rest of the user's inputs and see if he or she logged in correctly
 
 
 
