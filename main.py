@@ -1,9 +1,10 @@
 #!/usr/bin/python
-import parser,sys,init_history,compute_history,myMath
+import input_parser,sys,init_history,compute_history,myMath
 
 def main():
 	#open the input file for reading
-	user_input = parser.parse(sys.argv[1])
+	x = sys.argv[1]
+	user_input = input_parser.parse(x)
 
 	#store the user's input passwords
 
