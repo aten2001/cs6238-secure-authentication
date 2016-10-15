@@ -10,7 +10,7 @@ def main():
 	#store the user's input passwords
 	history = init_history.initialize_history(user_input)
 	#will compute the history of the user's input and creates a history file
-	# need to choose a hardened password
+	# need to choose a random hardened password and r and q
 	pwdArray = myMath.choose_hpwd()
 	hpwd = pwdArray[0]
 	q = pwdArray[1]
