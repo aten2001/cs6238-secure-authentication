@@ -26,7 +26,7 @@ def compute_mu_list(h):
 def compute_sigma_list(h):
 	return numpy.std(h[0])
 
-def compute_instruction_table(mu_list,sigma_list,hpwd, m):
+def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q):
 
 	#first need to create a polynomial function so we can create pairs
 	coefficientsList = polynomial_creation(hpwd,m)
