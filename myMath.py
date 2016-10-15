@@ -100,6 +100,9 @@ def calculate_XY_pairs(coefficientsList):
 def calc_instruct_table(xyPairsList):
 	return False
 
+def reconstruct_polynomial(decrypted_instruction_table,speeds_of_user,q,r,pwd):
+	return True
+
 if __name__ == '__main__':
 	encrypt_instruction_table([], 0, 0)
 	testSolveForY()

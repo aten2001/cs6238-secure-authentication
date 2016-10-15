@@ -41,8 +41,15 @@ def main():
 		sigma_list = []
 		hpwd = 0
 		history = []
-		decrypted_instruction_table = myMath.decrypt_instruction_table(instruction_table, pwd)
-
+		pwd = user_input[0][i]
+		speeds_of_user = []
+		for j in user_input[1][i]:
+			if j < 10:
+				speeds_of_user.append(0)
+			else:
+				speeds_of_user.append(1)
+		decrypted_instruction_table = myMath.decrypt_instruction_table(encrypted_instruction_table, pwd)
+		myMath.reconstruct_polynomial(decrypted_instruction_table,speeds_of_user,q,r,pwd)
 
 #Run the main function
 if __name__ == '__main__':
