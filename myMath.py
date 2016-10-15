@@ -2,6 +2,7 @@ import random
 import numpy
 import math
 from Crypto.Cipher import AES
+from Crypto.Hash import MD5
 
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
@@ -106,12 +107,7 @@ def G(message,r,pwd):
 def Pr(message,r):
 	return 100
 
-def generateAlpha(i,pwd,r):
-	x = Pr(2*i)
-	return False
 
-def generateBeta(i,pwd,r):
-	return False
 
 def test_recon():
 	xy_pairs = []
@@ -123,12 +119,18 @@ def test_recon():
 	key = pwdInt ^ r
 	key = str(key)
 	key1 = key + '012'
-	#key1 = b(key1)
-	size = len(key1)
+	h = MD5.new()
+	h.update(key1)
+	key = h.hexdigest()
+
 	cipher = AES.new(key, AES.MODE_ECB)
 	q = 99999999999999999999999999999999999999999
-	testValue = cipher.encrypt(cipher.encrypt(2 * 1))%q
-
+	s = str(2*1)
+	BS = 16
+	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+	s = pad(s)
+	testValue = cipher.encrypt(cipher.encrypt(s))
+	print "worked"
 
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
 def calculate_XY_pairs(coefficientsList,pwd,r):
@@ -145,13 +147,13 @@ def calculate_XY_pairs(coefficientsList,pwd,r):
 		instruction_table[0][coefficient] =	alpha_y
 		instruction_table[1][coefficient] = beta_y
 		i = i+1
-	return False
+	return instruction_table
 
 
 if __name__ == '__main__':
 
 	print "HELLO"
-#	test_recon()
+	test_recon()
 
 	#encrypt_instruction_table([], 0, 0)
 	#testSolveForY()
