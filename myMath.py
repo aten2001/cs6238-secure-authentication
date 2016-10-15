@@ -91,9 +91,11 @@ def calculate_XY_pairs(coefficientsList):
 	#calculate for teh number of features, then pad the rest of the values to a set number
 	num_features = len(coefficientsList)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
+	i = 1
 	for coefficient in range(num_features):
-		instruction_table[0][coefficient] =	generateAlpha(1)
-		instruction_table[1][coefficient] = generateBeta(2)
+		instruction_table[0][coefficient] =	generateAlpha(i)
+		instruction_table[1][coefficient] = generateBeta(i+1)
+		i = i+1
 	return False
 
 #this function will take in our long list of xy pairs, replace the rows of the table that are distinct, and return our final instruction_table
