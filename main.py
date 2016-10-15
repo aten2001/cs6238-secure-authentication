@@ -4,9 +4,9 @@ import input_parser,sys,init_history,compute_history,myMath
 def main():
 	#open the input file for reading
 	x = sys.argv[1]
-	m = 10 #TODO need to assign m correctly based on user input.
-	user_input = input_parser.parse(x)
 
+	user_input = input_parser.parse(x)
+	m = len(user_input[1][0])  # TODO need to assign m correctly based on user input.
 	#store the user's input passwords
 	history = init_history.initialize_history(user_input)
 	#will compute the history of the user's input and creates a history file
