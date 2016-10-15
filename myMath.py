@@ -15,9 +15,11 @@ def find_polynomial(q,num_features):
 def solveForY(coefficientsList, x):
 	degree = len(coefficientsList)-1
 	sum = 0
-	for coefficient in coefficientsList:
-		sum = sum + coefficient * math.pow(x, degree)
-		degree= degree - 1
+	power_x = 1
+	for coefficient in reversed(coefficientsList):
+		sum = sum + coefficient * power_x
+		power_x = power_x * x
+
 	return sum
 
 
@@ -172,4 +174,4 @@ if __name__ == '__main__':
 	value = Pr(100, 200)
 
 	#encrypt_instruction_table([], 0, 0)
-	#testSolveForY()
+	testSolveForY()
