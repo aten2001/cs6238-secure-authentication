@@ -25,10 +25,10 @@ def compute_mu_list(h):
 def compute_sigma_list(history):
 	return False
 
-def compute_instruction_table(mu_list,sigma_list,hpwd):
+def compute_instruction_table(mu_list,sigma_list,hpwd, m):
 
 	#first need to create a polynomial function so we can create pairs
-	coefficientsList = polynomial_creation(hpwd)
+	coefficientsList = polynomial_creation(hpwd,m)
 
 	# next generate a table of all correct values of the x,y pairings in a double array for both alpha and beta sides
 	#####padding will also be inserted into our list here as well, so the length of the password is hidden
@@ -49,8 +49,12 @@ def decrypt_instruction_table(instruction_table, pwd):
 	return False
 
 #this function will take in the hpwd, and generate a list of coefficients randomly that will by used as our function
-def polynomial_creation(hpwd):
-	return hpwd
+def polynomial_creation(hpwd, m):
+	polynomial_list = []
+	for i in range(0,m-1):
+		polynomial_list.append(random.randint(0,2**63))
+	polynomial_list.append(hpwd)
+	return polynomial_list
 
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
 def calculate_XY_pairs(coefficientsList):

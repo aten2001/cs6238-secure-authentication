@@ -4,6 +4,7 @@ import input_parser,sys,init_history,compute_history,myMath
 def main():
 	#open the input file for reading
 	x = sys.argv[1]
+	m = 10 #TODO need to assign m correctly based on user input.
 	user_input = input_parser.parse(x)
 
 	#store the user's input passwords
@@ -18,7 +19,7 @@ def main():
 	mu_list = myMath.compute_mu_list(history)
 	sigma_list=myMath.compute_sigma_list(history)
 	#figures out if we are slow or fast and computes the instruction table.
-	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list,hpwd)
+	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list,hpwd,m)
 	pwd = user_input[0][0]
 	#need to encrypt the instruction table with the user entered pwd, and possibly convert to a binary representation instead
 	encrypted_instruction_table = myMath.encrypt_instruction_table(instruction_table, pwd)
