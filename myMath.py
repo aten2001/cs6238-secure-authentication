@@ -8,11 +8,7 @@ def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
 	return 0;
 
-def generateAlpha(i,pwd,r):
-	return False
 
-def generateBeta(i,pwd,r):
-	return False
 
 #takes in a polynomial represented as a list of coefficients
 def solveForY(coefficientsList, x):
@@ -85,18 +81,6 @@ def polynomial_creation(hpwd, m):
 	polynomial_list.append(hpwd)
 	return polynomial_list
 
-#this function will take in all our coefficients (the polynomial function) and return our XY value pairs
-def calculate_XY_pairs(coefficientsList,pwd,r):
-
-	#calculate for teh number of features, then pad the rest of the values to a set number
-	num_features = len(coefficientsList)
-	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
-	i = 1
-	for coefficient in range(num_features):
-		instruction_table[0][coefficient] =	generateAlpha(i,pwd,r)
-		instruction_table[1][coefficient] = generateBeta(i+1,pwd,r)
-		i = i+1
-	return False
 
 #this function will take in our long list of xy pairs, replace the rows of the table that are distinct, and return our final instruction_table
 def calc_instruct_table(xyPairsList):
@@ -121,6 +105,13 @@ def G(message,r,pwd):
 def Pr(message,r):
 	return 100
 
+def generateAlpha(i,pwd,r):
+	x = Pr(2*i)
+	return False
+
+def generateBeta(i,pwd,r):
+	return False
+
 def test_recon():
 	xy_pairs = []
 	s = 'brian'
@@ -136,6 +127,24 @@ def test_recon():
 	cipher = AES.new(key, AES.MODE_ECB)
 	q = 99999999999999999999999999999999999999999
 	testValue = cipher.encrypt(cipher.encrypt(2 * 1))%q
+
+
+#this function will take in all our coefficients (the polynomial function) and return our XY value pairs
+def calculate_XY_pairs(coefficientsList,pwd,r):
+
+	#calculate for teh number of features, then pad the rest of the values to a set number
+	num_features = len(coefficientsList)
+	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
+	i = 1
+	for coefficient in range(num_features):
+		alpha_x = Pr(2*i,r)
+		beta_x = Pr(2*i+1,r)
+		alpha_y = solveForY(coefficientsList,alpha_x)
+		beta_y = solveForY(coefficientsList,beta_x)
+		instruction_table[0][coefficient] =	alpha_y
+		instruction_table[1][coefficient] = beta_y
+		i = i+1
+	return False
 
 
 if __name__ == '__main__':
