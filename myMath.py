@@ -130,6 +130,9 @@ def test_recon():
 	r = 248
 	key = pwdInt ^ r
 	key = str(key)
+	key1 = key + '012'
+	key1 = b(key1)
+	size = len(key1)
 	cipher = AES.new(key, AES.MODE_ECB)
 	q = 99999999999999999999999999999999999999999
 	testValue = cipher.encrypt(cipher.encrypt(2 * 1))%q
