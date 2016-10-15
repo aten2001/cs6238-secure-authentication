@@ -1,5 +1,6 @@
 import random
 import numpy
+import math
 from Crypto.Cipher import AES
 
 #takes in a random 160 bit number and returns a matching polynomial
@@ -13,6 +14,21 @@ def generateAlpha(num):
 def generateBeta(num):
 	return False
 
+#takes in a polynomial represented as a list of coefficients
+def solveForY(coefficientsList, x):
+	degree = len(coefficientsList)-1
+	sum = 0
+	for coefficient in coefficientsList:
+		sum = sum + coefficient * math.pow(x, degree)
+		degree= degree - 1
+	return sum
+
+
+def testSolveForY():
+	coefficientsList = [2,13,7]
+	x = 12
+	print ("testing Solve For Y")
+	print ("testing")
 
 #during the intitialization phase of the user's first five inputs, we need to generate a random hpwd
 def choose_hpwd():
