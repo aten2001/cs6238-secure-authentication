@@ -63,7 +63,7 @@ def calculate_XY_pairs(coefficientsList):
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
 	for i in range(0, 2):
 		for coefficient in range(num_features):
-			instruction_table[i][coefficient] = "blah"
+			instruction_table[i][coefficient] = 5
 	return False
 
 #this function will take in our long list of xy pairs, replace the rows of the table that are distinct, and return our final instruction_table
