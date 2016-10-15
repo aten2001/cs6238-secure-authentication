@@ -8,9 +8,13 @@ def find_polynomial(q,num_features):
 #during the intitialization phase of the user's first five inputs, we need to generate a random hpwd
 def choose_hpwd():
 	#choose a q that is 160 bits or smaller randomly
+	#TODO adjust q appropriately
 	q =random.randint(0, 2**160 - 1)
-
-	return q
+	#TODO choose random password
+	hpwd = random.randint(0,q-1) #generates a random number that is less than q
+	h = 6 #h is the number of previous login attempts to store in the history file
+	print "HPWD: " + str(hpwd)
+	return hpwd
 
 
 
