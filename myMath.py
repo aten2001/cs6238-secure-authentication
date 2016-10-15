@@ -116,6 +116,11 @@ def G(message,r,pwd):
 	s = pad(str(message))
 	testValue = cipher.encrypt(cipher.encrypt(s))
 
+	testValue = ''.join(str(ord(c)) for c in testValue)
+	testValue = str(testValue)
+
+
+
 	return testValue
 
 def Pr(message,r):
