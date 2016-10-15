@@ -49,7 +49,7 @@ def main():
 			else:
 				speeds_of_user.append(1)
 		decrypted_instruction_table = myMath.decrypt_instruction_table(encrypted_instruction_table, pwd)
-		reconstruct_polynomial(decrypted_instruction_table,speeds_of_user,q,r,pwd)
+		myMath.reconstruct_polynomial(decrypted_instruction_table,speeds_of_user,q,r,pwd)
 
 #Run the main function
 if __name__ == '__main__':
