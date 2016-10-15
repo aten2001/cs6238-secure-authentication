@@ -88,7 +88,8 @@ def calc_instruct_table(xyPairsList):
 
 def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	xy_pairs = []
-	pwdInt = int(pwd)
+	x = ''.join(str(ord(c)) for c in pwd)
+	pwdInt = int(x)
 	key = pwdInt ^ r
 	cipher = AES.new(key, AES.MODE_ECB)
 	for i in range(len(speeds_of_user)):
@@ -122,7 +123,7 @@ def test_recon():
 	key = pwdInt ^ r
 	key = str(key)
 	key1 = key + '012'
-	key1 = b(key1)
+	#key1 = b(key1)
 	size = len(key1)
 	cipher = AES.new(key, AES.MODE_ECB)
 	q = 99999999999999999999999999999999999999999
