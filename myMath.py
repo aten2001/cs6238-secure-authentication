@@ -25,10 +25,13 @@ def solveForY(coefficientsList, x):
 
 
 def testSolveForY():
-	coefficientsList = [2,13,7]
-	x = 12
+	coefficientsList = [2,3,7]
+	x = 3
+	listA = [3,4,2,1]
+	xA = 1
 	print ("testing Solve For Y")
-	print ("testing")
+	print ("expected value 34, actual value: "+ str(solveForY(coefficientsList,x)))
+	print ("expected value 10, actual value: "+str(solveForY(listA,xA)))
 
 #during the intitialization phase of the user's first five inputs, we need to generate a random hpwd
 def choose_hpwd():
@@ -109,3 +112,4 @@ def reconstruct_polynomial(decrypted_instruction_table,speeds_of_user,q,r,pwd):
 
 if __name__ == '__main__':
 	encrypt_instruction_table([], 0, 0)
+	testSolveForY()
