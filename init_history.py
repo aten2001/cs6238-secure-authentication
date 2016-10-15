@@ -5,6 +5,6 @@ def initialize_history(list_of_attempts):
     history_list = []
     for i in range(5):
         history_list.append(list_of_attempts[1][i])
-    history_list.append("Nice work!")
-    return history_list
+
+    return [history_list,"Nice Work!"]
 

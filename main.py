@@ -41,7 +41,7 @@ def main():
 		hpwd = 0
 		history = []
 		decrypted_instruction_table = myMath.decrypt_instruction_table(instruction_table, pwd)
-				
+
 
 #Run the main function
 if __name__ == '__main__':
