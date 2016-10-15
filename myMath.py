@@ -86,15 +86,15 @@ def polynomial_creation(hpwd, m):
 	return polynomial_list
 
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
-def calculate_XY_pairs(coefficientsList):
+def calculate_XY_pairs(coefficientsList,pwd,r):
 
 	#calculate for teh number of features, then pad the rest of the values to a set number
 	num_features = len(coefficientsList)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
 	i = 1
 	for coefficient in range(num_features):
-		instruction_table[0][coefficient] =	generateAlpha(i)
-		instruction_table[1][coefficient] = generateBeta(i+1)
+		instruction_table[0][coefficient] =	generateAlpha(i,pwd,r)
+		instruction_table[1][coefficient] = generateBeta(i+1,pwd,r)
 		i = i+1
 	return False
 
