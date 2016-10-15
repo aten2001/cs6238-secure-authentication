@@ -1,6 +1,6 @@
 import random
 import numpy
-
+import cryptography
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
@@ -16,8 +16,6 @@ def choose_hpwd():
 	h = 6 #h is the number of previous login attempts to store in the history file
 	print "HPWD: " + str(hpwd)
 	return hpwd
-
-
 
 
 def compute_mu_list(h):
