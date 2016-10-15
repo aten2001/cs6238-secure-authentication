@@ -124,7 +124,7 @@ def G(message,r,pwd):
 def Pr(message,r):
 
 	h = MD5.new()
-	h.update(r)
+	h.update(str(r))
 	key = h.hexdigest()
 
 	cipher = AES.new(key, AES.MODE_ECB)
@@ -168,7 +168,7 @@ def calculate_XY_pairs(coefficientsList,pwd,r,q):
 
 
 if __name__ == '__main__':
-	value = G(100, 200, 'okay')
+	value = Pr(100, 200)
 
 	#encrypt_instruction_table([], 0, 0)
 	#testSolveForY()
