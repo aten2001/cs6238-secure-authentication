@@ -89,18 +89,33 @@ def calc_instruct_table(xyPairsList):
 
 def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	xy_pairs = []
-	pwdInt = int(pwd)
-	key = pwdInt ^ r
-	cipher = AES.new(key, AES.MODE_ECB)
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
-			y = (alpha - cipher.encrypt(cipher.encrypt(2*i)))% q
+			#y = (alpha - cipher.encrypt(cipher.encrypt(2*i)))% q
 
 	return True
 
 def G(message,r,pwd):
 
+	pwd = ''.join(str(ord(c)) for c in pwd)
+
+	pwdInt = int(pwd)
+	r = 248
+	key = pwdInt ^ r
+	key = str(key)
+	h = MD5.new()
+	h.update(key)
+	key = h.hexdigest()
+
+	cipher = AES.new(key, AES.MODE_ECB)
+	q = 99999999999999999999999999999999999999999
+	s = str(2*1)
+	BS = 16
+	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+	s = pad(s)
+	testValue = cipher.encrypt(cipher.encrypt(s))
+	print "worked"
 	return 100
 
 def Pr(message,r):
