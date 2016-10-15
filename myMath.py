@@ -90,12 +90,14 @@ def calc_instruct_table(xyPairsList):
 	return False
 
 def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
-	xy_pairs = []
+	y_list = []
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
-			#y = (alpha - cipher.encrypt(cipher.encrypt(2*i)))% q
-
+			y_list.append(alpha - G(2*i,r,pwd)%q)
+		else:
+			beta = instruction_table[0][i]
+			y_list.append(beta - G((2*i)- 1, r, pwd)%q)
 	return True
 
 def G(message,r,pwd):
