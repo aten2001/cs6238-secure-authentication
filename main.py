@@ -11,9 +11,10 @@ def main():
 	history = init_history.initialize_history(user_input)
 	#will compute the history of the user's input and creates a history file
 	# need to choose a hardened password
-	hpwd = myMath.choose_hpwd()
-
-
+	pwdArray = myMath.choose_hpwd()
+	hpwd = pwdArray[0]
+	q = pwdArray[1]
+	r  = pwdArray[2]
 	#need to compute mu and sigma
 	#will return a list of mus per feature
 	mu_list = myMath.compute_mu_list(history)

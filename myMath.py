@@ -12,11 +12,12 @@ def choose_hpwd():
 	#choose a q that is 160 bits or smaller randomly
 	#TODO adjust q appropriately
 	q =random.randint(0, 2**160 - 1)
+	r = random.randint(0, 2 ** 160 - 1)
 	#TODO choose random password
 	hpwd = random.randint(0,q-1) #generates a random number that is less than q
 	h = 6 #h is the number of previous login attempts to store in the history file
 	print "HPWD: " + str(hpwd)
-	return hpwd
+	return [hpwd,q,r]
 
 
 def compute_mu_list(h):
@@ -61,7 +62,7 @@ def polynomial_creation(hpwd, m):
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
 def calculate_XY_pairs(coefficientsList):
 
-	r =
+
 	#calculate for teh number of features, then pad the rest of the values to a set number
 	num_features = len(coefficientsList)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
