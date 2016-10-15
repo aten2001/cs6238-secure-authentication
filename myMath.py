@@ -7,16 +7,24 @@ def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
 	return 0;
 
+def generateAlpha(num):
+	return False
+
+def generateBeta(num):
+	return False
+
+
 #during the intitialization phase of the user's first five inputs, we need to generate a random hpwd
 def choose_hpwd():
 	#choose a q that is 160 bits or smaller randomly
 	#TODO adjust q appropriately
 	q =random.randint(0, 2**160 - 1)
+	r = random.randint(0, 2 ** 160 - 1)
 	#TODO choose random password
 	hpwd = random.randint(0,q-1) #generates a random number that is less than q
 	h = 6 #h is the number of previous login attempts to store in the history file
 	print "HPWD: " + str(hpwd)
-	return hpwd
+	return [hpwd,q,r]
 
 
 def compute_mu_list(h):
@@ -25,7 +33,7 @@ def compute_mu_list(h):
 def compute_sigma_list(h):
 	return numpy.std(h[0])
 
-def compute_instruction_table(mu_list,sigma_list,hpwd, m):
+def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q):
 
 	#first need to create a polynomial function so we can create pairs
 	coefficientsList = polynomial_creation(hpwd,m)
