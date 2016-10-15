@@ -123,9 +123,13 @@ def Pr(message,r):
 
 def test_recon():
 	xy_pairs = []
-	pwdInt = int('brian')
-	r = 100
+	s = 'brian'
+	x = ''.join(str(ord(c)) for c in s)
+
+	pwdInt = int(x)
+	r = 248
 	key = pwdInt ^ r
+	key = str(key)
 	cipher = AES.new(key, AES.MODE_ECB)
 	q = 99999999999999999999999999999999999999999
 	testValue = cipher.encrypt(cipher.encrypt(2 * 1))%q
