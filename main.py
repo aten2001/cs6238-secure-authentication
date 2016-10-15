@@ -42,8 +42,14 @@ def main():
 	for i in range(5,len(user_input[0])):
 		#we check each entry at this point to see if it is sucessful
 		#use password to unzip instruction table
+		pwd = 0
+		instruction_table = []
+		mu_list = []
+		sigma_list = []
+		hpwd = 0
+		history = []
 		decrypted_instruction_table = myMath.decrypt_instruction_table(instruction_table, pwd)
-
+				
 
 #Run the main function
 if __name__ == '__main__':
