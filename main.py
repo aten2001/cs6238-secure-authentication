@@ -23,9 +23,6 @@ def main():
 	#figures out if we are slow or fast and computes the instruction table.
 	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list,hpwd,m,r,q,pwd)
 
-	#need to encrypt the instruction table with the user entered pwd, and possibly convert to a binary representation instead
-	encrypted_instruction_table = myMath.encrypt_instruction_table(instruction_table, pwd,r)
-
 	encrypted_history_file = compute_history.compute_history(history, hpwd)
 
 	#??? Do we need to print success for the first 5 runs?
@@ -49,8 +46,8 @@ def main():
 				speeds_of_user.append(0)
 			else:
 				speeds_of_user.append(1)
-		decrypted_instruction_table = myMath.decrypt_instruction_table(encrypted_instruction_table, pwd)
-		hpwd = myMath.reconstruct_polynomial(decrypted_instruction_table,speeds_of_user,q,r,pwd)
+
+		hpwd = myMath.reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd)
 
 #Run the main function
 if __name__ == '__main__':
