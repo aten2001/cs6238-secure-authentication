@@ -87,8 +87,10 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 			alpha = instruction_table[0][i]
 			y_list.append(alpha - G(2*i,r,pwd)%q)
 		else:
-			beta = instruction_table[0][i]
+			beta = instruction_table[1][i]
 			y_list.append(beta - G((2*i)- 1, r, pwd)%q)
+
+
 	return True
 
 def G(message,r,pwd):
