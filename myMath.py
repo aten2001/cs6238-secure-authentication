@@ -102,7 +102,8 @@ def calc_instruct_table(xyPairsList):
 
 def reconstruct_polynomial(decrypted_instruction_table,speeds_of_user,q,r,pwd):
 	xy_pairs = []
-	obj = AES.new('This is a key123', AES.MODE_CBC, 'This is an IV456')
+	pwdInt =
+	obj = AES.new('This is a key123', AES.MODE_ECB)
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = decrypted_instruction_table[0][i]
