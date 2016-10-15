@@ -8,10 +8,10 @@ def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
 	return 0;
 
-def generateAlpha(num):
+def generateAlpha(i,pwd,r):
 	return False
 
-def generateBeta(num):
+def generateBeta(i,pwd,r):
 	return False
 
 #takes in a polynomial represented as a list of coefficients
@@ -86,15 +86,15 @@ def polynomial_creation(hpwd, m):
 	return polynomial_list
 
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
-def calculate_XY_pairs(coefficientsList):
+def calculate_XY_pairs(coefficientsList,pwd,r):
 
 	#calculate for teh number of features, then pad the rest of the values to a set number
 	num_features = len(coefficientsList)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
 	i = 1
 	for coefficient in range(num_features):
-		instruction_table[0][coefficient] =	generateAlpha(i)
-		instruction_table[1][coefficient] = generateBeta(i+1)
+		instruction_table[0][coefficient] =	generateAlpha(i,pwd,r)
+		instruction_table[1][coefficient] = generateBeta(i+1,pwd,r)
 		i = i+1
 	return False
 
@@ -140,7 +140,8 @@ def test_recon():
 
 if __name__ == '__main__':
 
+	print "HELLO"
+#	test_recon()
 
-	test_recon()
 	#encrypt_instruction_table([], 0, 0)
 	#testSolveForY()
