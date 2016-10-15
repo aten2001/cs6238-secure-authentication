@@ -1,6 +1,6 @@
 import random
 import numpy
-
+import cryptography
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
