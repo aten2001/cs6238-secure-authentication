@@ -1,4 +1,5 @@
 import random
+import numpy
 
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
@@ -20,10 +21,10 @@ def choose_hpwd():
 
 
 def compute_mu_list(h):
-	return False
+	return numpy.mean(h[0])
 
-def compute_sigma_list(history):
-	return False
+def compute_sigma_list(h):
+	return numpy.std(h[0])
 
 def compute_instruction_table(mu_list,sigma_list,hpwd):
 
