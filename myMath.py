@@ -66,11 +66,7 @@ def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 
 	return instruction_table
 
-#possibly need this to turn into a binary array, not a python list object
-def encrypt_instruction_table(instruction_table,pwd,r):
 
-	obj = AES.new('This is a key123', AES.MODE_CBC, 'This is an IV456')
-	return False
 
 #decrypt the instruction table for use (might decrypt to the wrong information though)
 def decrypt_instruction_table(instruction_table, pwd):
@@ -91,6 +87,7 @@ def calc_instruct_table(xyPairsList):
 
 def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	y_list = []
+	return True
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
