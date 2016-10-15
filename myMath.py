@@ -1,6 +1,7 @@
 import random
 import numpy
-import cryptography
+from Crypto.Cipher import AES
+
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
@@ -40,7 +41,9 @@ def compute_instruction_table(mu_list,sigma_list,hpwd, m):
 	return instruction_table
 
 #possibly need this to turn into a binary array, not a python list object
-def encrypt_instruction_table(instruction_table,pwd):
+def encrypt_instruction_table(instruction_table,pwd,r):
+
+	obj = AES.new('This is a key123', AES.MODE_CBC, 'This is an IV456')
 	return False
 
 #decrypt the instruction table for use (might decrypt to the wrong information though)
@@ -64,3 +67,5 @@ def calculate_XY_pairs(coefficientsList):
 def calc_instruct_table(xyPairsList):
 	return False
 
+if __name__ == '__main__':
+	encrypt_instruction_table([], 0, 0)
