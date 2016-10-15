@@ -60,6 +60,12 @@ def polynomial_creation(hpwd, m):
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
 def calculate_XY_pairs(coefficientsList):
 	#calculate for teh number of features, then pad the rest of the values to a set number
+
+	num_features = len(coefficientsList)
+	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
+	for i in range(0, 2):
+		for coefficient in range(num_features):
+			instruction_table[i][coefficient] = "blah"
 	return False
 
 #this function will take in our long list of xy pairs, replace the rows of the table that are distinct, and return our final instruction_table
