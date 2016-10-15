@@ -115,7 +115,10 @@ def G(message,r,pwd):
 	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
 	s = pad(str(message))
 	testValue = cipher.encrypt(cipher.encrypt(s))
-	
+
+	testValue = ''.join(str(ord(c)) for c in testValue)
+	testValue = int(testValue)
+
 	return testValue
 
 def Pr(message,r):
