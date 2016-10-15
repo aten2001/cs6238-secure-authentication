@@ -147,7 +147,7 @@ def calculate_XY_pairs(coefficientsList,pwd,r,q):
 		instruction_table[0][coefficient] =	alpha
 		instruction_table[1][coefficient] = beta
 		i = i+1
-	return False
+	return instruction_table
 
 
 if __name__ == '__main__':
