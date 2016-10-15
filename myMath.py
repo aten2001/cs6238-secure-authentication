@@ -79,7 +79,7 @@ def polynomial_creation(hpwd, m):
 
 
 
-
+#should return a list of coefficients
 def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	y_list = []
 	for i in range(len(speeds_of_user)):
