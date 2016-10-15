@@ -7,7 +7,6 @@ def main():
 	user_input = input_parser.parse(x)
 
 	#store the user's input passwords
-
 	history = init_history.initialize_history(user_input)
 	#will compute the history of the user's input and creates a history file
 	# need to choose a hardened password
@@ -29,14 +28,6 @@ def main():
 	#??? Do we need to print success for the first 5 runs?
 	for i in range(5):
 		print 1
-
-	#clear all saved information critical to the program
-	pwd = 0
-	instruction_table = []
-	mu_list = []
-	sigma_list = []
-	hpwd = 0
-	history = []
 
 	#check the rest of the user's inputs and see if he or she logged in correctly
 	for i in range(5,len(user_input[0])):

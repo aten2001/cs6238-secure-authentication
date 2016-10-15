@@ -1,19 +1,29 @@
 import random
-import numpy
+
+#takes in a random 160 bit number and returns a matching polynomial
+def find_polynomial(q,num_features):
+	#generate a bunch of x,y pairs
+	return 0;
 
 #during the intitialization phase of the user's first five inputs, we need to generate a random hpwd
 def choose_hpwd():
 	#choose a q that is 160 bits or smaller randomly
+	#TODO adjust q appropriately
 	q =random.randint(0, 2**160 - 1)
+	#TODO choose random password
+	hpwd = random.randint(0,q-1) #generates a random number that is less than q
+	h = 6 #h is the number of previous login attempts to store in the history file
+	print "HPWD: " + str(hpwd)
+	return hpwd
 
-	return q
+
+
 
 def compute_mu_list(h):
+	return False
 
-	return numpy.mean(h[0])
-
-def compute_sigma_list(h):
-	return numpy.std(h[0])
+def compute_sigma_list(history):
+	return False
 
 def compute_instruction_table(mu_list,sigma_list,hpwd):
 
