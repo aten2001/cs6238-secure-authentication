@@ -101,7 +101,7 @@ def G(message,r,pwd):
 	pwd = ''.join(str(ord(c)) for c in pwd)
 
 	pwdInt = int(pwd)
-	r = 248
+
 	key = pwdInt ^ r
 	key = str(key)
 	h = MD5.new()
@@ -109,14 +109,14 @@ def G(message,r,pwd):
 	key = h.hexdigest()
 
 	cipher = AES.new(key, AES.MODE_ECB)
-	q = 99999999999999999999999999999999999999999
-	s = str(2*1)
+
+
 	BS = 16
 	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
-	s = pad(s)
+	s = pad(str(message))
 	testValue = cipher.encrypt(cipher.encrypt(s))
-	print "worked"
-	return 100
+
+	return testValue
 
 def Pr(message,r):
 	return 100
@@ -128,28 +128,7 @@ def generateAlpha(i,pwd,r):
 def generateBeta(i,pwd,r):
 	return False
 
-def test_recon():
-	xy_pairs = []
-	s = 'brian'
-	x = ''.join(str(ord(c)) for c in s)
 
-	pwdInt = int(x)
-	r = 248
-	key = pwdInt ^ r
-	key = str(key)
-	key1 = key + '012'
-	h = MD5.new()
-	h.update(key1)
-	key = h.hexdigest()
-
-	cipher = AES.new(key, AES.MODE_ECB)
-	q = 99999999999999999999999999999999999999999
-	s = str(2*1)
-	BS = 16
-	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
-	s = pad(s)
-	testValue = cipher.encrypt(cipher.encrypt(s))
-	print "worked"
 
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
 def calculate_XY_pairs(coefficientsList,pwd,r,q):
@@ -172,8 +151,7 @@ def calculate_XY_pairs(coefficientsList,pwd,r,q):
 
 
 if __name__ == '__main__':
-
-	test_recon()
+	value = G(100, 200, 'okay')
 
 	#encrypt_instruction_table([], 0, 0)
 	#testSolveForY()
