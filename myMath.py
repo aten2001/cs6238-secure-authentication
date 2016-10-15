@@ -102,17 +102,31 @@ def calculate_XY_pairs(coefficientsList):
 def calc_instruct_table(xyPairsList):
 	return False
 
-def reconstruct_polynomial(decrypted_instruction_table,speeds_of_user,q,r,pwd):
+def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	xy_pairs = []
-	pwdInt =
-	obj = AES.new('This is a key123', AES.MODE_ECB)
+	pwdInt = int(pwd)
+	key = pwdInt ^ r
+	cipher = AES.new(key, AES.MODE_ECB)
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
-			alpha = decrypted_instruction_table[0][i]
-
+			alpha = instruction_table[0][i]
+			y = (alpha - cipher.encrypt(cipher.encrypt(2*i)))% q
 
 	return True
 
+def test_recon():
+	xy_pairs = []
+	pwdInt = int('brian')
+	r = 100
+	key = pwdInt ^ r
+	cipher = AES.new(key, AES.MODE_ECB)
+	q = 99999999999999999999999999999999999999999
+	testValue = cipher.encrypt(cipher.encrypt(2 * 1))%q
+
+
 if __name__ == '__main__':
-	encrypt_instruction_table([], 0, 0)
-	testSolveForY()
+
+
+	test_recon()
+	#encrypt_instruction_table([], 0, 0)
+	#testSolveForY()
