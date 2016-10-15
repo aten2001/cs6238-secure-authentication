@@ -145,13 +145,14 @@ def calculate_XY_pairs(coefficientsList,pwd,r,q):
 		beta_x = Pr(2*i+1,r)
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
-		alpha = alpha_y + G(2*i,r,pwd) %q
-		beta = beta_y + G(2*i+1,r,pwd) %q
+		g = G(2*i,r,pwd)%q
+		alpha = alpha_y + g
+		g = G(2 * i + 1, r, pwd)%q
+		beta = beta_y + g
 		instruction_table[0][coefficient] =	alpha
 		instruction_table[1][coefficient] = beta
 		i = i+1
 	return instruction_table
-
 
 if __name__ == '__main__':
 	value = G(100, 200, 'okay')
