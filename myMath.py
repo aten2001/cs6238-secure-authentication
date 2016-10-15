@@ -122,7 +122,21 @@ def G(message,r,pwd):
 	return testValue
 
 def Pr(message,r):
-	return 100
+
+	h = MD5.new()
+	h.update(r)
+	key = h.hexdigest()
+
+	cipher = AES.new(key, AES.MODE_ECB)
+
+	BS = 16
+	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+	s = pad(str(message))
+	testValue = cipher.encrypt(cipher.encrypt(s))
+
+	testValue = ''.join(str(ord(c)) for c in testValue)
+	testValue = int(testValue)
+	return testValue
 
 def generateAlpha(i,pwd,r):
 	x = Pr(2*i)
