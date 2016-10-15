@@ -115,7 +115,7 @@ def G(message,r,pwd):
 	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
 	s = pad(str(message))
 	testValue = cipher.encrypt(cipher.encrypt(s))
-
+	
 	return testValue
 
 def Pr(message,r):
@@ -142,8 +142,8 @@ def calculate_XY_pairs(coefficientsList,pwd,r,q):
 		beta_x = Pr(2*i+1,r)
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
-		alpha = alpha_y + G(2*i,r,pwd)%q
-		beta = beta_y + G(2*i+1,r,pwd)%q
+		alpha = alpha_y + G(2*i,r,pwd) %q
+		beta = beta_y + G(2*i+1,r,pwd) %q
 		instruction_table[0][coefficient] =	alpha
 		instruction_table[1][coefficient] = beta
 		i = i+1
