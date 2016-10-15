@@ -114,6 +114,13 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 
 	return True
 
+def G(message,r,pwd):
+
+	return 100
+
+def Pr(message,r):
+	return 100
+
 def test_recon():
 	xy_pairs = []
 	pwdInt = int('brian')
