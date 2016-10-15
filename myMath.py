@@ -52,14 +52,14 @@ def compute_mu_list(h):
 def compute_sigma_list(h):
 	return numpy.std(h[0])
 
-def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q):
+def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 
 	#first need to create a polynomial function so we can create pairs
 	coefficientsList = polynomial_creation(hpwd,m)
 
 	# next generate a table of all correct values of the x,y pairings in a double array for both alpha and beta sides
 	#####padding will also be inserted into our list here as well, so the length of the password is hidden
-	xyPairsList = calculate_XY_pairs(coefficientsList)
+	xyPairsList = calculate_XY_pairs(coefficientsList,r,pwd)
 
 	#now we will check the different feature values to determine if the user is fast or slow
 	#if user is neither fast nor slow, we will insert a random value into the list that is not equal to the correct value
