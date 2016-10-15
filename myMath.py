@@ -8,10 +8,10 @@ def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
 	return 0;
 
-def generateAlpha(num):
+def generateAlpha(i,pwd,r):
 	return False
 
-def generateBeta(num):
+def generateBeta(i,pwd,r):
 	return False
 
 #takes in a polynomial represented as a list of coefficients
@@ -133,7 +133,8 @@ def test_recon():
 
 if __name__ == '__main__':
 
+	print "HELLO"
+#	test_recon()
 
-	test_recon()
 	#encrypt_instruction_table([], 0, 0)
 	#testSolveForY()
