@@ -34,7 +34,7 @@ def main():
 		#we check each entry at this point to see if it is sucessful
 		#use password to unzip instruction table
 		pwd = 0
-		instruction_table = []
+
 		mu_list = []
 		sigma_list = []
 		hpwd = 0
