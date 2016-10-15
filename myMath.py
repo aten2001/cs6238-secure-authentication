@@ -18,8 +18,6 @@ def choose_hpwd():
 	return hpwd
 
 
-
-
 def compute_mu_list(h):
 	return numpy.mean(h[0])
 
