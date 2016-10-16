@@ -3,6 +3,7 @@ import numpy
 import math
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
+from Crypto.Util import number
 
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
@@ -36,7 +37,7 @@ def testSolveForY():
 def choose_hpwd():
 	#choose a q that is 160 bits or smaller randomly
 	#TODO adjust q appropriately
-	q =random.randint(0, 2**160 - 1)
+	q =number.getPrime(160)
 	r = random.randint(0, 2 ** 160 - 1)
 	#TODO choose random password
 	hpwd = random.randint(0,q-1) #generates a random number that is less than q
@@ -156,9 +157,9 @@ def calculate_instruction_table(coefficientsList, pwd, r, q):
 		beta_x = Pr(2*i+1,r)%q
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
-		print "REPEAT"
-		print alpha_y
-		print beta_y
+		#print "REPEAT"
+		#print alpha_y
+		#print beta_y
 		g = G(2*i,r,pwd)%q
 		alpha = alpha_y + g
 		g = G(2 * i + 1, r, pwd)%q
@@ -168,8 +169,16 @@ def calculate_instruction_table(coefficientsList, pwd, r, q):
 		i = i+1
 	return instruction_table
 
+##########################Creating the Test Functions##############
+
+def testIsPrime():
+	trueprime = 13
+	falseprime = 124
+	print "CRYPTO " +str(number.isPrime(13))
+	print " Generating Prime: " + str(number.getPrime(160))
+
 if __name__ == '__main__':
 	value = Pr(100, 200)
-
+	testIsPrime()
 	#encrypt_instruction_table([], 0, 0)
 	testSolveForY()
