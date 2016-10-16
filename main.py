@@ -35,6 +35,8 @@ def main():
 	# need to choose a random hardened password and r and q
 	pwdArray = myMath.choose_hpwd()
 	hpwd = pwdArray[0]
+	print "hpwd"
+	print hpwd
 	q = pwdArray[1]
 	r = pwdArray[2]
 	print "hpwd"
@@ -44,10 +46,11 @@ def main():
 	mu_list = myMath.compute_mu_list(history)
 	sigma_list = myMath.compute_sigma_list(history)
 	pwd = user_input[0][0]
-
+	master_pwd = pwd
 	# figures out if we are slow or fast and computes the instruction table.
 	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list, hpwd, m, r, q, pwd)
-
+	answers_list = instruction_table[1]
+	instruction_table = instruction_table[0]
 
 	encrypted_history_file = compute_history.encrypt_history_data_structure(history,hpwd)
 	compute_history.write_to_disk(encrypted_history_file)
@@ -64,7 +67,7 @@ def main():
 	for i in range(5, len(user_input[0])):
 		# we check each entry at this point to see if it is sucessful
 		# use password to unzip instruction table
-		pwd = 0
+
 
 		mu_list = []
 		sigma_list = []
@@ -78,7 +81,10 @@ def main():
 			else:
 				speeds_of_user.append(1)
 		hpwd = myMath.reconstruct_polynomial(instruction_table, speeds_of_user, q, r, pwd)
+		login_attempt = False
+		for i in speeds_of_user:
 
+		if master_pwd==pwd and :
 
 # Run the main function
 if __name__ == '__main__':

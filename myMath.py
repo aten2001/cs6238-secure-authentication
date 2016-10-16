@@ -70,6 +70,8 @@ def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 
 	# next generate a table of all correct values of the x,y pairings in a double array for both alpha and beta sides
 	#####padding will also be inserted into our list here as well, so the length of the password is hidden
+
+
 	instruction_table = calculate_instruction_table(coefficientsList, pwd, r, q,mu_list,sigma_list)
 
 
@@ -194,20 +196,25 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 		alpha = alpha_y + g
 		g = G(2 * i + 1, r, pwd)%q
 		beta = beta_y + g
+		answers_list = []
 		# if the feature is distinguishing only populate one side of the table with a correct value
 		if isFeatureDistinguishing(sigma_list[i-1],mu_list[i-1]) == False:
 			instruction_table[0][coefficient] =	alpha
 			instruction_table[1][coefficient] = beta
+			answers_list.append(-1)
+
 		#if the feature is fast only populate the alpha value with correct
 		elif isFeatureFast(sigma_list[i-1],mu_list[i-1]):
 			instruction_table[0][coefficient] = alpha
 			instruction_table[1][coefficient] = random.randint(0,2**159)
+			answers_list.append(0)
 		#if the feature is slow, only populate the beta value
 		else:
 			instruction_table[0][coefficient] = random.randint(0, 2 ** 159)
 			instruction_table[1][coefficient] = beta
+			answers_list.append(1)
 		i = i+1
-	return instruction_table
+	return [instruction_table,answers_list]
 
 ##########################Creating the Test Functions##############
 
@@ -225,7 +232,7 @@ def lamb(x_array,i):
 	mult = 1
 	for j in range(len(x_array)):
 		if j!=i:
-			mult = mult*(x_array[j]/(x_array[j]-x_array[i]))
+			mult = mult*(0-x_array[j]/(x_array[j]-x_array[i]))
 	return mult
 
 def Lagrange(x_array, y_array,q):
