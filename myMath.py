@@ -72,12 +72,6 @@ def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 
 	return instruction_table
 
-
-
-#decrypt the instruction table for use (might decrypt to the wrong information though)
-def decrypt_instruction_table(instruction_table, pwd):
-	return False
-
 #this function will take in the hpwd, and generate a list of coefficients randomly that will by used as our function
 def polynomial_creation(hpwd, m):
 	polynomial_list = []
@@ -146,14 +140,9 @@ def Pr(message,r):
 	testValue = int(testValue)
 	return testValue
 
-def generateAlpha(i,pwd,r):
-	x = Pr(2*i)
-	return False
 
-def generateBeta(i,pwd,r):
-	return False
+def isFeatureDistinguishing(mu,sigma):
 
-def isFeatureDistinguishing(mu_list,sigma_list):
 	return False
 
 def isFeatureFast(mu_list,sigma_list):
@@ -208,11 +197,10 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 
 ##########################Creating the Test Functions##############
 
-def testIsPrime():
-	trueprime = 13
-	falseprime = 124
-	print "CRYPTO " +str(number.isPrime(13))
-	print " Generating Prime: " + str(number.getPrime(160))
+def testIsFeatureDistinguishing():
+	logging.debug("TESTING isFeatureDistinguishing()")
+	logging.debug("Expected Value: True actual value: "+ isFeatureDistinguishing(20,2))
+	logging.debug("Expected Value: False actual value: "+ isFeatureDistinguishing(20,10))
 
 if __name__ == '__main__':
 	value = Pr(100, 200)
