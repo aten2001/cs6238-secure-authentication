@@ -55,10 +55,12 @@ def choose_hpwd():
 
 
 def compute_mu_list(h):
-	return numpy.mean(h[0])
+	x = numpy.mean(h[0],axis=0)
+	return x
 
 def compute_sigma_list(h):
-	return numpy.std(h[0])
+	x = numpy.std(h[0],axis=0)
+	return x
 
 def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 
