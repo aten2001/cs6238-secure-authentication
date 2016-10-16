@@ -89,12 +89,12 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
-			g = G(2*i,r,pwd)%q
-			g1 = G(2 * i, r, pwd) % q
+			g = G(2*(i+1),r,pwd)%q
+			#g1 = G(2 * i, r, pwd) % q
 			y_list.append(alpha - (G(2*i,r,pwd)%q))
 		else:
 			beta = instruction_table[1][i]
-			y_list.append(beta - (G((2*i)- 1, r, pwd))%q)
+			y_list.append(beta - (G((2*(i+1))- 1, r, pwd))%q)
 
 
 	return True
@@ -106,13 +106,13 @@ def G(message,r,pwd):
 	pwdInt = int(pwd)
 
 	key = pwdInt ^ r
+
 	key = str(key)
 	h = MD5.new()
 	h.update(key)
 	key = h.hexdigest()
 
 	cipher = AES.new(key, AES.MODE_ECB)
-
 
 	BS = 16
 	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
@@ -121,7 +121,7 @@ def G(message,r,pwd):
 
 	testValue = ''.join(str(ord(c)) for c in testValue)
 	testValue = int(testValue)
-
+	print testValue
 	return testValue
 
 def Pr(message,r):
@@ -167,7 +167,7 @@ def calculate_instruction_table(coefficientsList, pwd, r, q):
 		print "PART 2"
 		print beta_y
 		g = G(2*i,r,pwd)%q
-		g1 = G(2*i,r,pwd)%q
+		#g1 = G(2*i,r,pwd)%q
 
 		alpha = alpha_y + g
 		g = G(2 * i + 1, r, pwd)%q
