@@ -87,16 +87,20 @@ def polynomial_creation(hpwd, m):
 #should return a list of coefficients
 def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	y_list = []
+	x_list = []
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
 			#g = G(2*(i+1),r,pwd)%q
 			#g1 = G(2 * i, r, pwd) % q
 			y_list.append(alpha - (G(2*(i+1),r,pwd)%q))
+			x_list.append(Pr(2*(i+1),r))
 		else:
 			beta = instruction_table[1][i]
-			y_list.append(beta - (G((2*(i+1))- 1, r, pwd))%q)
+			y_list.append(beta - (G(2*(i+1)+1, r, pwd)%q))
+			x_list.append(Pr(2*(i+1)+1,r))
 
+	Lagrange(x_list,y_list,q)
 
 	return True
 
@@ -118,7 +122,7 @@ def G(message,r,pwd):
 	BS = 16
 	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
 	s = pad(str(message))
-	testValue = cipher.encrypt(cipher.encrypt(s))
+	testValue = cipher.encrypt(s)
 
 	testValue = ''.join(str(ord(c)) for c in testValue)
 	testValue = int(testValue)
