@@ -1,0 +1,6 @@
+Python Build Instruction:
+
+	Install pyCrypto. pip install pyCrypto
+	
+Running the code:
+	python main.py [input file]
