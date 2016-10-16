@@ -223,9 +223,13 @@ def Lagrange(x_array, y_array,q):
 		sum = sum + ((lam*y_array[i])%q)
 	return sum
 
+
+
 if __name__ == '__main__':
+
 	value = Pr(100, 200)
 	testIsFeatureDistinguishing()
 	testIsFeatureFast()
+
 	#encrypt_instruction_table([], 0, 0)
-	testSolveForY()
+	#testSolveForY()
