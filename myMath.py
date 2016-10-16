@@ -89,10 +89,12 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
-			y_list.append(alpha - G(2*i,r,pwd)%q)
+			g = G(2*i,r,pwd)%q
+			g1 = G(2 * i, r, pwd) % q
+			y_list.append(alpha - (G(2*i,r,pwd)%q))
 		else:
 			beta = instruction_table[1][i]
-			y_list.append(beta - G((2*i)- 1, r, pwd)%q)
+			y_list.append(beta - (G((2*i)- 1, r, pwd))%q)
 
 
 	return True
@@ -160,10 +162,17 @@ def calculate_instruction_table(coefficientsList, pwd, r, q):
 		beta_x = Pr(2*i+1,r)%q
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
-		#print "REPEAT"
-		#print alpha_y
-		#print beta_y
+		print "REPEAT"
+		print alpha_y
+		print "PART 2"
+		print beta_y
 		g = G(2*i,r,pwd)%q
+		g1 = G(2*i,r,pwd)%q
+		print "Here is g"
+		print "pwd:" \
+			  ""
+		print g
+		print g1
 		alpha = alpha_y + g
 		g = G(2 * i + 1, r, pwd)%q
 		beta = beta_y + g
