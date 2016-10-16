@@ -6,7 +6,7 @@ from Crypto.Hash import MD5
 from Crypto.Util import number
 import logging
 
-logging.basicConfig(filename='status.log',level=logging.INFO)
+logging.basicConfig(filename='status.log', filemode='w', level=logging.DEBUG)
 
 
 
@@ -37,9 +37,9 @@ def testSolveForY():
 	x = 3
 	listA = [3,4,2,1]
 	xA = 1
-	print ("testing Solve For Y")
-	print ("expected value 34, actual value: "+ str(solveForY(coefficientsList,x)))
-	print ("expected value 10, actual value: "+str(solveForY(listA,xA)))
+	logging.debug("testing Solve For Y")
+	logging.debug("expected value 34, actual value: "+ str(solveForY(coefficientsList,x)))
+	logging.debug("expected value 10, actual value: "+str(solveForY(listA,xA)))
 
 #during the intitialization phase of the user's first five inputs, we need to generate a random hpwd
 def choose_hpwd():
@@ -166,10 +166,6 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
 
-		logging.debug("REPEAT")
-		logging.debug(alpha_y)
-		logging.debug("PART 2")
-		logging.debug(beta_y)
 
 		print "REPEAT"
 		print alpha_y
@@ -201,11 +197,11 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 
 def testIsFeatureDistinguishing():
 	logging.debug("TESTING isFeatureDistinguishing()")
-	logging.debug("Expected Value: True actual value: "+ isFeatureDistinguishing(20,2))
-	logging.debug("Expected Value: False actual value: "+ isFeatureDistinguishing(20,10))
+	logging.debug("Expected Value: True actual value: "+ str(isFeatureDistinguishing(20,2)))
+	logging.debug("Expected Value: False actual value: "+ str(isFeatureDistinguishing(20,10)))
 
 if __name__ == '__main__':
 	value = Pr(100, 200)
-	testIsPrime()
+	testIsFeatureDistinguishing()
 	#encrypt_instruction_table([], 0, 0)
 	testSolveForY()
