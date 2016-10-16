@@ -149,9 +149,9 @@ def Pr(message,r):
 
 	testValue = ''.join(str(ord(c)) for c in testValue)
 	testValue = int(testValue)
-	#return testValue
-	print "fix this"
-	return message
+	return testValue
+
+
 
 
 def isFeatureDistinguishing(mu,sigma):
