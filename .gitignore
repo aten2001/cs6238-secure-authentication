@@ -1,0 +1,4 @@
+.idea/cs6238-secure-authentication.iml .idea/misc.xml .idea/modules.xml .idea/vcs.xml .idea/workspace.xml
+*.pyc
+*.log
+.idea/
