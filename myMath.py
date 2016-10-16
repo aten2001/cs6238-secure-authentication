@@ -152,8 +152,8 @@ def calculate_instruction_table(coefficientsList, pwd, r, q):
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
 	i = 1
 	for coefficient in range(num_features):
-		alpha_x = Pr(2*i,r)
-		beta_x = Pr(2*i+1,r)
+		alpha_x = Pr(2*i,r)%q
+		beta_x = Pr(2*i+1,r)%q
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
 		print "REPEAT"
