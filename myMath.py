@@ -8,6 +8,9 @@ import logging
 
 logging.basicConfig(filename='status.log',level=logging.DEBUG)
 
+k = 2
+t=10
+
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
@@ -62,7 +65,7 @@ def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 
 	# next generate a table of all correct values of the x,y pairings in a double array for both alpha and beta sides
 	#####padding will also be inserted into our list here as well, so the length of the password is hidden
-	instruction_table = calculate_instruction_table(coefficientsList, pwd, r, q)
+	instruction_table = calculate_instruction_table(coefficientsList, pwd, r, q,mu_list,sigma_list)
 
 
 	return instruction_table
@@ -146,29 +149,46 @@ def generateAlpha(i,pwd,r):
 def generateBeta(i,pwd,r):
 	return False
 
+def isFeatureDistinguishing(mu_list,sigma_list):
+	return False
 
+def isFeatureFast(mu_list,sigma_list):
+	return False
 
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
-def calculate_instruction_table(coefficientsList, pwd, r, q):
+def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list):
 	logging.info("BUILDING INSTRUCTION TABLE")
 	#calculate for the number of features, then pad the rest of the values to a set number
 	num_features = len(coefficientsList)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
 	i = 1
 	for coefficient in range(num_features):
+
 		alpha_x = Pr(2*i,r)%q
 		beta_x = Pr(2*i+1,r)%q
+
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
-		#print "REPEAT"
-		#print alpha_y
-		#print beta_y
+
+		logging.debug("REPEAT")
+		logging.debug(alpha_y)
+		logging.debug(beta_y)
 		g = G(2*i,r,pwd)%q
 		alpha = alpha_y + g
 		g = G(2 * i + 1, r, pwd)%q
 		beta = beta_y + g
-		instruction_table[0][coefficient] =	alpha
-		instruction_table[1][coefficient] = beta
+		# if the feature is distinguishing only populate one side of the table with a correct value
+		if isFeatureDistinguishing(sigma_list,mu_list) == False:
+			instruction_table[0][coefficient] =	alpha
+			instruction_table[1][coefficient] = beta
+		#if the feature is fast only populate the alpha value with correct
+		elif isFeatureFast(sigma_list,mu_list):
+			instruction_table[0][coefficient] = alpha
+			instruction_table[1][coefficient] = random.randint(0,2**159)
+		#if the feature is slow, only populate the beta value
+		else:
+			instruction_table[0][coefficient] = random.randint(0, 2 ** 159)
+			instruction_table[1][coefficient] = beta
 		i = i+1
 	return instruction_table
 

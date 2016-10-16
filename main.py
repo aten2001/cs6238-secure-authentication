@@ -26,9 +26,11 @@ def main():
 	encrypted_history_file = compute_history.compute_history(history, hpwd)
 
 	#??? Do we need to print success for the first 5 runs?
+	print ("First Five Login Attempts: ")
 	for i in range(5):
 		print 1
 
+	print("Account Initialized.... Subsequent login attempts: ")
 	#check the rest of the user's inputs and see if he or she logged in correctly
 	for i in range(5,len(user_input[0])):
 		#we check each entry at this point to see if it is sucessful

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import logging
 #reads from file and passes results to the login_handler
 #returns a list l where l[0] is user entered password and l[1] is an array of features 
 def parse(filename):
@@ -8,7 +9,7 @@ def parse(filename):
 	features = [] # list of password_features list
 	list_passwords = [] #list of user entered passwords
 
-	print "parsing input file"
+	logging.info("parsing input file")
 	with open(filename,'r') as f:
 		for line in f:
 			if feature == False: #store the user input password
