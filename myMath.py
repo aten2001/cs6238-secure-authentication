@@ -134,9 +134,7 @@ def Pr(message,r):
 	h = MD5.new()
 	h.update(str(r))
 	key = h.hexdigest()
-
 	cipher = AES.new(key, AES.MODE_ECB)
-
 	BS = 16
 	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
 	s = pad(str(message))
