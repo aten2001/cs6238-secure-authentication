@@ -15,6 +15,8 @@ def main():
 	hpwd = pwdArray[0]
 	q = pwdArray[1]
 	r  = pwdArray[2]
+	print "hpwd"
+	print hpwd
 	#need to compute mu and sigma
 	#will return a list of mus per feature
 	mu_list = myMath.compute_mu_list(history)
@@ -23,7 +25,7 @@ def main():
 	#figures out if we are slow or fast and computes the instruction table.
 	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list,hpwd,m,r,q,pwd)
 
-	encrypted_history_file = compute_history.compute_history(history, hpwd)
+#	encrypted_history_file = compute_history.compute_history(history, hpwd)
 
 	#??? Do we need to print success for the first 5 runs?
 	print ("First Five Login Attempts: ")
