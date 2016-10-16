@@ -24,7 +24,9 @@ def test_decrypt_encrypt_feature_array(key, list_features):
 
 def main():
 	# open the input file for reading
+
 	x = sys.argv[1]
+
 	user_input = input_parser.parse(x)
 	m = len(user_input[1][0])
 	# store the user's input passwords

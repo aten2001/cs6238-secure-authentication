@@ -1,5 +1,5 @@
 
-import logging
+import logging, main
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 
@@ -17,9 +17,6 @@ def prepareKey(key):
 #This function takes in a feature list and begin to build the file.
 # it will use the input as the key to encrypt the history file
 def encrypt_string(secret, key):
-    # type: (object, object) -> object
-    #list_features = first_five_logins[0]
-    #secret = first_five_logins[1]
     cipher = AES.new(prepareKey(key), AES.MODE_ECB)
     BS = 16
     pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
@@ -27,6 +24,7 @@ def encrypt_string(secret, key):
     encrypted_value = cipher.encrypt(s)
     return encrypted_value
 
+#will take in a list of features and encrypt every feature individually
 def encrypt_list_features(list_features,key):
     encrypted_features = []
     for feature in list_features:
@@ -97,9 +95,13 @@ def decrypt_history_file_from_disk():
         for line in history_file:
             logging.debug("FEATURE VAL: "+ line)
 
+
+
+
 if __name__ == '__main__':
-    
-    logging.debug("INSIDE OF THE COMPUTE HISTORY FILE")
+
+    print "history file before encryption: "
+    main.main()
     decrypt_history_file_from_disk()
 
 
