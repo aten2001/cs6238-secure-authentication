@@ -210,12 +210,18 @@ def testIsFeatureFast():
 	logging.debug("Expected Value: False actual value " + str(isFeatureFast(3,5)))
 
 def lamb(x_array,i):
-	return True
+	mult = 1
+	for j in range(len(x_array)):
+		if j!=i:
+			mult = mult*(x_array[j]/(x_array[j]-x_array[i]))
+	return mult
 
-def Lagrange(x_array, y_array):
+def Lagrange(x_array, y_array,q):
+	sum = 0
 	for i in range(len(y_array)):
 		lam = lamb(x_array,i)
-	return True
+		sum = sum + ((lam*y_array[i])%q)
+	return sum
 
 if __name__ == '__main__':
 	value = Pr(100, 200)
