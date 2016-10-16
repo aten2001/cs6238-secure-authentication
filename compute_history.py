@@ -99,9 +99,8 @@ def decrypt_history_file_from_disk():
 
 
 if __name__ == '__main__':
-
     print "history file before encryption: "
-    main.main()
+
     decrypt_history_file_from_disk()
 
 

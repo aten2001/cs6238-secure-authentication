@@ -77,7 +77,6 @@ def main():
 				speeds_of_user.append(0)
 			else:
 				speeds_of_user.append(1)
-
 		hpwd = myMath.reconstruct_polynomial(instruction_table, speeds_of_user, q, r, pwd)
 
 
