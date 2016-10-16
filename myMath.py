@@ -6,7 +6,8 @@ from Crypto.Hash import MD5
 from Crypto.Util import number
 import logging
 
-logging.basicConfig(filename='status.log',level=logging.DEBUG)
+logging.basicConfig(filename='status.log',level=logging.INFO)
+
 
 
 k = 2
@@ -165,6 +166,7 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 	num_features = len(coefficientsList)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
 	i = 1
+	j = 1
 	for coefficient in range(num_features):
 
 		alpha_x = Pr(2*i,r)%q
@@ -185,11 +187,11 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 		g = G(2 * i + 1, r, pwd)%q
 		beta = beta_y + g
 		# if the feature is distinguishing only populate one side of the table with a correct value
-		if isFeatureDistinguishing(sigma_list,mu_list) == False:
+		if isFeatureDistinguishing(sigma_list[j],mu_list[j]) == False:
 			instruction_table[0][coefficient] =	alpha
 			instruction_table[1][coefficient] = beta
 		#if the feature is fast only populate the alpha value with correct
-		elif isFeatureFast(sigma_list,mu_list):
+		elif isFeatureFast(sigma_list[j],mu_list[j]):
 			instruction_table[0][coefficient] = alpha
 			instruction_table[1][coefficient] = random.randint(0,2**159)
 		#if the feature is slow, only populate the beta value
