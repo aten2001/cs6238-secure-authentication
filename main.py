@@ -1,5 +1,15 @@
 #!/usr/bin/python
-import input_parser,sys,init_history,compute_history,myMath
+import input_parser,sys,init_history,compute_history,myMath,logging
+
+logging.basicConfig(filename='status.log', level=logging.DEBUG)
+
+def test_decrypt_history(key):
+	message = "Brian Is the Man!"
+	logging.debug("Testing the Encrypt and Decrypt functionality of the history file")
+	logging.debug("ORIGINAL MESSAGE: "+message)
+	cipher_text = compute_history.compute_history(message, key)
+	logging.debug("CIPHER TEXT: "+cipher_text)
+	logging.debug("Decrypted Cipher Text: "+ compute_history.decrypt_history(cipher_text,key))
 
 def main():
 	#open the input file for reading
@@ -23,7 +33,10 @@ def main():
 	#figures out if we are slow or fast and computes the instruction table.
 	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list,hpwd,m,r,q,pwd)
 
-	encrypted_history_file = compute_history.compute_history(history, hpwd)
+	#BRIANS TEST CODE"
+
+	test_decrypt_history(hpwd)
+	#encrypted_history_file = compute_history.compute_history(history, hpwd)
 
 	#??? Do we need to print success for the first 5 runs?
 	print ("First Five Login Attempts: ")
@@ -50,9 +63,12 @@ def main():
 				speeds_of_user.append(1)
 
 		hpwd = myMath.reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd)
-		
+
+
+
 
 #Run the main function
 if __name__ == '__main__':
 	main()
+
 
