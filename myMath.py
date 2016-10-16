@@ -79,9 +79,9 @@ def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 def polynomial_creation(hpwd, m):
 	polynomial_list = []
 	for i in range(0,m-1):
-		#polynomial_list.append(random.randint(0,2**63))
-		print "fix this"
-		polynomial_list.append(random.randint(0, 2 ** 10))
+		polynomial_list.append(random.randint(0,2**63))
+
+
 	polynomial_list.append(hpwd)
 	return polynomial_list
 
