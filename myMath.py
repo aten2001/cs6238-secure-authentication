@@ -4,6 +4,9 @@ import math
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 from Crypto.Util import number
+import logging
+
+logging.basicConfig(filename='status.log',level=logging.DEBUG)
 
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
@@ -42,7 +45,7 @@ def choose_hpwd():
 	#TODO choose random password
 	hpwd = random.randint(0,q-1) #generates a random number that is less than q
 	h = 6 #h is the number of previous login attempts to store in the history file
-	print "HPWD: " + str(hpwd)
+
 	return [hpwd,q,r]
 
 
@@ -147,7 +150,7 @@ def generateBeta(i,pwd,r):
 
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
 def calculate_instruction_table(coefficientsList, pwd, r, q):
-
+	logging.info("BUILDING INSTRUCTION TABLE")
 	#calculate for the number of features, then pad the rest of the values to a set number
 	num_features = len(coefficientsList)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
