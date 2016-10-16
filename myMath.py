@@ -79,7 +79,9 @@ def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 def polynomial_creation(hpwd, m):
 	polynomial_list = []
 	for i in range(0,m-1):
-		polynomial_list.append(random.randint(0,2**63))
+		#polynomial_list.append(random.randint(0,2**63))
+		print "fix this"
+		polynomial_list.append(random.randint(0, 2 ** 10))
 	polynomial_list.append(hpwd)
 	return polynomial_list
 
@@ -102,9 +104,10 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 			x_list.append(Pr(2*(i+1)+1,r))
 
 	hpwd = Lagrange(x_list,y_list,q)
-	hpwd = interpolate.lagrange(x_list,y_list)
+	#hpwd = interpolate.lagrange(x_list,y_list)
+	#print "hpwd"
+	#print long(hpwd(0))
 
-	print long(hpwd(0))
 
 	return hpwd
 
@@ -130,7 +133,7 @@ def G(message,r,pwd):
 
 	testValue = ''.join(str(ord(c)) for c in testValue)
 	testValue = int(testValue)
-	print testValue
+
 	return testValue
 
 def Pr(message,r):
@@ -180,7 +183,9 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
 
-
+		print "ALPHA/BETA"
+		print alpha_x
+		print beta_x
 		print "REPEAT"
 		print alpha_y
 		print "PART 2"
@@ -229,17 +234,19 @@ def lamb(x_array,i):
 def Lagrange(x_array, y_array,q):
 	sum = 0
 	for i in range(len(y_array)):
+		test = y_array[i]%q
+		test1 = y_array[i]
 		lam = lamb(x_array,i)
 		#sum = sum + lam*(y_array[i]%q) #wrong way I believe
-		sum = sum + (lam*y_array[i])%q #this might be correct
-		#sum = sum + (lam * y_array[i])
+		#sum = sum + (lam*y_array[i])%q #this might be correct
+		sum = sum + (lam * y_array[i])
 	return sum
 	#return sum%q #wrong return
 
 
 
 if __name__ == '__main__':
-
+	solveForY([2,3,4], 2)
 	value = Pr(100, 200)
 	testIsFeatureDistinguishing()
 	testIsFeatureFast()
