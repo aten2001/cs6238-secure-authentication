@@ -144,10 +144,14 @@ def Pr(message,r):
 
 
 def isFeatureDistinguishing(mu,sigma):
-
+	if abs(mu - t) > k*sigma:
+		return True
 	return False
 
-def isFeatureFast(mu_list,sigma_list):
+def isFeatureFast(mu,sigma):
+
+	if mu + k*sigma < t:
+		return True
 	return False
 
 #this function will take in all our coefficients (the polynomial function) and return our XY value pairs
@@ -200,6 +204,11 @@ def testIsFeatureDistinguishing():
 	logging.debug("Expected Value: True actual value: "+ str(isFeatureDistinguishing(20,2)))
 	logging.debug("Expected Value: False actual value: "+ str(isFeatureDistinguishing(20,10)))
 
+def testIsFeatureFast():
+	logging.debug("Testing isFeatureFast()")
+	logging.debug("Expected Value: True actual value: " + str(isFeatureFast(5,1)))
+	logging.debug("Expected Value: False actual value " + str(isFeatureFast(3,5)))
+
 def lamb(x_array,i):
 	return True
 
@@ -211,5 +220,6 @@ def Lagrange(x_array, y_array):
 if __name__ == '__main__':
 	value = Pr(100, 200)
 	testIsFeatureDistinguishing()
+	testIsFeatureFast()
 	#encrypt_instruction_table([], 0, 0)
 	testSolveForY()
