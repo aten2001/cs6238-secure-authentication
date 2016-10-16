@@ -156,6 +156,9 @@ def calculate_instruction_table(coefficientsList, pwd, r, q):
 		beta_x = Pr(2*i+1,r)
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
+		print "REPEAT"
+		print alpha_y
+		print beta_y
 		g = G(2*i,r,pwd)%q
 		alpha = alpha_y + g
 		g = G(2 * i + 1, r, pwd)%q
