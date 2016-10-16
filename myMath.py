@@ -218,8 +218,10 @@ def Lagrange(x_array, y_array,q):
 		sum = sum + ((lam*y_array[i])%q)
 	return sum
 
+
+
 if __name__ == '__main__':
-	value = Pr(100, 200)
-	testIsPrime()
+	Lagrange([1,2,3],[1,2,3],30)
+
 	#encrypt_instruction_table([], 0, 0)
-	testSolveForY()
+	#testSolveForY()
