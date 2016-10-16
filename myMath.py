@@ -102,7 +102,7 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 			beta = instruction_table[1][i]
 			y_list.append(beta - (G(2*(i+1)+1, r, pwd)%q))
 			x_list.append(Pr(2*(i+1)+1,r))
-
+	
 	hpwd = Lagrange(x_list,y_list,q)
 	#hpwd = interpolate.lagrange(x_list,y_list)
 	#print "hpwd"
