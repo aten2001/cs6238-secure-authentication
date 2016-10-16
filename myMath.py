@@ -200,6 +200,14 @@ def testIsFeatureDistinguishing():
 	logging.debug("Expected Value: True actual value: "+ str(isFeatureDistinguishing(20,2)))
 	logging.debug("Expected Value: False actual value: "+ str(isFeatureDistinguishing(20,10)))
 
+def lamb(x_array,i):
+	return True
+
+def Lagrange(x_array, y_array):
+	for i in range(len(y_array)):
+		lam = lamb(x_array,i)
+	return True
+
 if __name__ == '__main__':
 	value = Pr(100, 200)
 	testIsFeatureDistinguishing()
