@@ -100,9 +100,9 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 			y_list.append(beta - (G(2*(i+1)+1, r, pwd)%q))
 			x_list.append(Pr(2*(i+1)+1,r))
 
-	Lagrange(x_list,y_list,q)
+	hpwd = Lagrange(x_list,y_list,q)
 
-	return True
+	return hpwd
 
 def G(message,r,pwd):
 
@@ -144,7 +144,9 @@ def Pr(message,r):
 
 	testValue = ''.join(str(ord(c)) for c in testValue)
 	testValue = int(testValue)
-	return testValue
+	#return testValue
+	print "fix this"
+	return message
 
 
 def isFeatureDistinguishing(mu,sigma):
@@ -224,7 +226,8 @@ def Lagrange(x_array, y_array,q):
 	sum = 0
 	for i in range(len(y_array)):
 		lam = lamb(x_array,i)
-		sum = sum + ((lam*y_array[i])%q)
+		#sum = sum + lam*(y_array[i]%q) #wrong way I believe
+		sum = sum + (lam*y_array[i])%q #wrong way I believe
 	return sum
 
 
