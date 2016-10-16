@@ -25,9 +25,8 @@ def test_decrypt_encrypt_feature_array(key, list_features):
 def main():
 	# open the input file for reading
 	x = sys.argv[1]
-
 	user_input = input_parser.parse(x)
-	m = len(user_input[1][0])  # TODO need to assign m correctly based on user input.
+	m = len(user_input[1][0])
 	# store the user's input passwords
 	history = init_history.initialize_history(user_input)
 	# will compute the history of the user's input and creates a history file
@@ -38,22 +37,20 @@ def main():
 	r = pwdArray[2]
 	print "hpwd"
 	print hpwd
-	# need to compute mu and sigma
+
 	# will return a list of mus per feature
 	mu_list = myMath.compute_mu_list(history)
 	sigma_list = myMath.compute_sigma_list(history)
 	pwd = user_input[0][0]
+
 	# figures out if we are slow or fast and computes the instruction table.
 	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list, hpwd, m, r, q, pwd)
 
-	# BRIANS TEST CODE"
-	test_decrypt_encrypt_feature_array(hpwd, history[0][0])
-	test_decrypt_encrypt_string(hpwd)
-	encrypted_features = compute_history.encrypt_double_array_features(history[0], hpwd)
-	decrypted_features = compute_history.decrypt_double_array_features(encrypted_features, hpwd)
 
 	encrypted_history_file = compute_history.encrypt_history_data_structure(history,hpwd)
+	compute_history.write_to_disk(encrypted_history_file)
 	decrypted_history_file = compute_history.decrypt_history_data_structure(encrypted_history_file,hpwd)
+	print decrypted_history_file[1]
 
 	# ??? Do we need to print success for the first 5 runs?
 	print ("First Five Login Attempts: ")

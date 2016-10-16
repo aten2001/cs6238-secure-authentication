@@ -3,7 +3,7 @@ import logging
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 
-logging.basicConfig(filename='status.log', level=logging.DEBUG)
+logging.basicConfig(filename='history_file.log', level=logging.DEBUG)
 
 #takes in a long value and converts it to an acceptable string key for AES
 def prepareKey(key):
@@ -83,9 +83,24 @@ def decrypt_history_data_structure(encrypted_history_file, key):
     decrypted_h_data_structure.append(decrypted_final_string)
     return decrypted_h_data_structure
 
-if __name__ == '__main__':
-    logging.debug("INSIDE OF THE COMPUTE HISTORY FILE")
+def write_to_disk(encrypted_history_file):
+    with open('encrypted_history_file.txt','w') as history_file:
+        list_features = encrypted_history_file[0]
+        for list in list_features:
+            for feature_val in list:
+                history_file.write(feature_val)
+        final_string = encrypted_history_file[1]
+        history_file.write(final_string)
 
+def decrypt_history_file_from_disk():
+    with open('encrypted_history_file.txt','r') as history_file:
+        for line in history_file:
+            logging.debug("FEATURE VAL: "+ line)
+
+if __name__ == '__main__':
+    
+    logging.debug("INSIDE OF THE COMPUTE HISTORY FILE")
+    decrypt_history_file_from_disk()
 
 
 
