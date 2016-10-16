@@ -168,11 +168,7 @@ def calculate_instruction_table(coefficientsList, pwd, r, q):
 		print beta_y
 		g = G(2*i,r,pwd)%q
 		g1 = G(2*i,r,pwd)%q
-		print "Here is g"
-		print "pwd:" \
-			  ""
-		print g
-		print g1
+
 		alpha = alpha_y + g
 		g = G(2 * i + 1, r, pwd)%q
 		beta = beta_y + g
