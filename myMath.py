@@ -5,6 +5,7 @@ from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 from Crypto.Util import number
 import logging
+import scipy.interpolate as interpolate
 
 logging.basicConfig(filename='status.log', filemode='w', level=logging.DEBUG)
 
@@ -101,6 +102,9 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 			x_list.append(Pr(2*(i+1)+1,r))
 
 	hpwd = Lagrange(x_list,y_list,q)
+	hpwd = interpolate.lagrange(x_list,y_list)
+
+	print long(hpwd(0))
 
 	return hpwd
 
@@ -227,8 +231,10 @@ def Lagrange(x_array, y_array,q):
 	for i in range(len(y_array)):
 		lam = lamb(x_array,i)
 		#sum = sum + lam*(y_array[i]%q) #wrong way I believe
-		sum = sum + (lam*y_array[i])%q #wrong way I believe
+		sum = sum + (lam*y_array[i])%q #this might be correct
+		#sum = sum + (lam * y_array[i])
 	return sum
+	#return sum%q #wrong return
 
 
 
