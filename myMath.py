@@ -13,7 +13,6 @@ logging.basicConfig(filename='status.log',level=logging.INFO)
 k = 2
 t=10
 
-
 #takes in a random 160 bit number and returns a matching polynomial
 def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
