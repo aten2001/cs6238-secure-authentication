@@ -204,10 +204,12 @@ def testIsFeatureDistinguishing():
 	logging.debug("Expected Value: True actual value: "+ isFeatureDistinguishing(20,2))
 	logging.debug("Expected Value: False actual value: "+ isFeatureDistinguishing(20,10))
 
-def lambdq(x_array):
+def lamb(x_array,i):
 	return True
 
 def Lagrange(x_array, y_array):
+	for i in range(len(y_array)):
+		lam = lamb(x_array,i)
 	return True
 
 if __name__ == '__main__':
