@@ -2,7 +2,7 @@
 import logging, main
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
-
+import myMath
 logging.basicConfig(filename='history_file.log', level=logging.DEBUG)
 
 #takes in a long value and converts it to an acceptable string key for AES
@@ -95,7 +95,13 @@ def decrypt_history_file_from_disk():
         for line in history_file:
             logging.debug("FEATURE VAL: "+ line)
 
-
+def update_history_file(history_file,new_times):
+    new_history = []
+    new_history.append(new_times)
+    for i in range(len(history_file[0])-1):
+        new_history.append(history_file[0][i])
+    history_file[0] = new_history
+    return history_file
 
 
 if __name__ == '__main__':

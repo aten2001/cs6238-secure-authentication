@@ -174,6 +174,7 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 	num_features = len(coefficientsList)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
 	i = 1
+	answers_list = []
 	for coefficient in range(num_features):
 
 		alpha_x = Pr(2*i,r)%q
@@ -196,15 +197,15 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 		alpha = alpha_y + g
 		g = G(2 * i + 1, r, pwd)%q
 		beta = beta_y + g
-		answers_list = []
+
 		# if the feature is distinguishing only populate one side of the table with a correct value
-		if isFeatureDistinguishing(sigma_list[i-1],mu_list[i-1]) == False:
+		if isFeatureDistinguishing(mu_list[i-1],sigma_list[i-1]) == False:
 			instruction_table[0][coefficient] =	alpha
 			instruction_table[1][coefficient] = beta
 			answers_list.append(-1)
 
 		#if the feature is fast only populate the alpha value with correct
-		elif isFeatureFast(sigma_list[i-1],mu_list[i-1]):
+		elif isFeatureFast(mu_list[i-1],sigma_list[i-1]):
 			instruction_table[0][coefficient] = alpha
 			instruction_table[1][coefficient] = random.randint(0,2**159)
 			answers_list.append(0)
@@ -232,7 +233,7 @@ def lamb(x_array,i):
 	mult = 1
 	for j in range(len(x_array)):
 		if j!=i:
-			mult = mult*(0-x_array[j]/(x_array[j]-x_array[i]))
+			mult = mult*(x_array[j]/(x_array[j]-x_array[i]))
 	return mult
 
 def Lagrange(x_array, y_array,q):
@@ -244,8 +245,8 @@ def Lagrange(x_array, y_array,q):
 		#sum = sum + lam*(y_array[i]%q) #wrong way I believe
 		#sum = sum + (lam*y_array[i])%q #this might be correct
 		sum = sum + (lam * y_array[i])
-	return sum
-	#return sum%q #wrong return
+	#return sum
+	return sum%q #wrong return
 
 
 

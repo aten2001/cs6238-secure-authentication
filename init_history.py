@@ -1,11 +1,12 @@
 #list of attempts is the user entered input in the form of a 2 dimensional array.
 # [x][y] where x is password and y is the feature value
-def initialize_history(list_of_attempts):
+def initialize_history(list_of_attempts,size_of_history):
 	padding_entry = []
 	history_list = []
-	for i in range(len(list_of_attempts[1][0])):
-		padding_entry.append(10)
-	history_list.append(padding_entry)
+	if size_of_history == '6':
+		for i in range(len(list_of_attempts[1][0])):
+			padding_entry.append(10)
+		history_list.append(padding_entry)
 	for i in range(5):
 		history_list.append(list_of_attempts[1][i])
 

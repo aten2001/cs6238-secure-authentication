@@ -26,11 +26,11 @@ def main():
 	# open the input file for reading
 
 	x = sys.argv[1]
-
+	size_of_history = sys.argv[2]
 	user_input = input_parser.parse(x)
 	m = len(user_input[1][0])
 	# store the user's input passwords
-	history = init_history.initialize_history(user_input)
+	history = init_history.initialize_history(user_input,size_of_history)
 	# will compute the history of the user's input and creates a history file
 	# need to choose a random hardened password and r and q
 	pwdArray = myMath.choose_hpwd()
@@ -47,6 +47,7 @@ def main():
 	sigma_list = myMath.compute_sigma_list(history)
 	pwd = user_input[0][0]
 	master_pwd = pwd
+	master_hpwd = hpwd
 	# figures out if we are slow or fast and computes the instruction table.
 	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list, hpwd, m, r, q, pwd)
 	answers_list = instruction_table[1]
@@ -54,8 +55,8 @@ def main():
 
 	encrypted_history_file = compute_history.encrypt_history_data_structure(history,hpwd)
 	compute_history.write_to_disk(encrypted_history_file)
-	decrypted_history_file = compute_history.decrypt_history_data_structure(encrypted_history_file,hpwd)
-	print decrypted_history_file[1]
+
+
 
 	# ??? Do we need to print success for the first 5 runs?
 	print ("First Five Login Attempts: ")
@@ -81,10 +82,29 @@ def main():
 			else:
 				speeds_of_user.append(1)
 		hpwd = myMath.reconstruct_polynomial(instruction_table, speeds_of_user, q, r, pwd)
-		login_attempt = False
-		for i in speeds_of_user:
+		login_attempt = True
 
-		if master_pwd==pwd and :
+		#this is where the work around begins for the hpwd setup
+		for k in range(len(speeds_of_user)):
+			if answers_list[k]!=-1:
+				if answers_list[k]!=speeds_of_user[k]:
+					login_attempt=False
+					break
+
+		if master_pwd!=pwd:
+			login_attempt=False
+
+		if login_attempt:
+			hpwd = master_pwd
+
+		decrypted_history_file = compute_history.decrypt_history_data_structure(encrypted_history_file, hpwd)
+		print 'Fix this, always returns true'
+		#if decrypted_history_file[1]=="Nice Work!":
+		if True:
+			decrypted_history_file = compute_history.update_history_file(decrypted_history_file,user_input[1][i])
+		else: #this is where we try error reduction
+			True
+
 
 # Run the main function
 if __name__ == '__main__':
