@@ -3,7 +3,7 @@ import input_parser, sys, init_history, compute_history, myMath, logging
 
 logging.basicConfig(filename='status.log', level=logging.DEBUG)
 
-
+#Unit test function created during the debugging of the history file encryption
 def test_decrypt_encrypt_string(key):
 	message = "Brian Is the Man!"
 	logging.debug("Testing the Encrypt and Decrypt functionality of a string")
@@ -12,7 +12,7 @@ def test_decrypt_encrypt_string(key):
 	logging.debug("CIPHER TEXT: " + cipher_text)
 	logging.debug("Decrypted Cipher Text: " + compute_history.decrypt_string(cipher_text, key))
 
-
+#Unit test function created during the debugging of the history file encryption
 def test_decrypt_encrypt_feature_array(key, list_features):
 	logging.debug("\n\n")
 	logging.debug("UNENCRYPTED FEATURES: \n"+str(list_features))
@@ -35,7 +35,6 @@ def main():
 	# need to choose a random hardened password and r and q
 	pwdArray = myMath.choose_hpwd()
 	hpwd = pwdArray[0]
-
 	q = pwdArray[1]
 	r = pwdArray[2]
 
