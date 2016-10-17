@@ -24,7 +24,7 @@ def test_decrypt_encrypt_feature_array(key, list_features):
 
 def main():
 	# open the input file for reading
-
+	error_correction = int(sys.argv[3])
 	x = sys.argv[1]
 	size_of_history = sys.argv[2]
 	user_input = input_parser.parse(x)
@@ -62,7 +62,9 @@ def main():
 
 	print("Account Initialized.... Subsequent login attempts: ")
 	# check the rest of the user's inputs and see if he or she logged in correctly
+	second_time = False
 	for i in range(5, len(user_input[0])):
+
 		# we check each entry at this point to see if it is sucessful
 		# use password to unzip instruction table
 
@@ -109,7 +111,8 @@ def main():
 			encrypted_history_file = compute_history.encrypt_history_data_structure(decrypted_history_file, hpwd)
 			decrypted_history_file = ""
 			print 1
-		elif(master_pwd==pwd): #this is where we try error reduction
+
+		elif(master_pwd==pwd and error_correction): #this is where we try error reduction
 			login_sucess = False
 			login_attempt = True
 			speeds_of_user2 = []
@@ -149,9 +152,21 @@ def main():
 					decrypted_history_file = ""
 					print 1
 					login_sucess = True
+					second_time = False
 					break
-			if not login_sucess:
+			if (not login_sucess) and second_time:
 				print 0
+				#second_time = False
+			if (not login_sucess) and (not second_time):
+				print 0
+				#second_time = True
+		else:
+			print 0
+			#if second_time:
+			#	print 0
+			#	second_time = False
+			#else:
+			#	second_time = True
 # Run the main function
 if __name__ == '__main__':
 	main()
