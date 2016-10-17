@@ -35,12 +35,9 @@ def main():
 	# need to choose a random hardened password and r and q
 	pwdArray = myMath.choose_hpwd()
 	hpwd = pwdArray[0]
-	print "hpwd"
-	print hpwd
+
 	q = pwdArray[1]
 	r = pwdArray[2]
-	print "hpwd"
-	print hpwd
 
 	# will return a list of mus per feature
 	mu_list = myMath.compute_mu_list(history)
@@ -95,17 +92,66 @@ def main():
 			login_attempt=False
 
 		if login_attempt:
-			hpwd = master_pwd
+			hpwd = master_hpwd
 
 		decrypted_history_file = compute_history.decrypt_history_data_structure(encrypted_history_file, hpwd)
-		print 'Fix this, always returns true'
-		#if decrypted_history_file[1]=="Nice Work!":
-		if True:
+
+		if decrypted_history_file[1]=="Nice Work!":
+
 			decrypted_history_file = compute_history.update_history_file(decrypted_history_file,user_input[1][i])
-		else: #this is where we try error reduction
-			True
+			mu_list = myMath.compute_mu_list(decrypted_history_file)
+			sigma_list = myMath.compute_sigma_list(decrypted_history_file)
+			pwdArray = myMath.choose_hpwd()
+			r = pwdArray[2]
+			instruction_table = myMath.compute_instruction_table(mu_list, sigma_list, hpwd, m, r, q, pwd)
+			answers_list = instruction_table[1]
+			instruction_table = instruction_table[0]
+			encrypted_history_file = compute_history.encrypt_history_data_structure(decrypted_history_file, hpwd)
+			decrypted_history_file = ""
+			print 1
+		elif(master_pwd==pwd): #this is where we try error reduction
+			login_sucess = False
+			login_attempt = True
+			speeds_of_user2 = []
+			for item in speeds_of_user:
+				speeds_of_user2.append(item)
 
+			for l in range(len(speeds_of_user)):
+				login_attempt = True
+				speeds_of_user = []
+				for item in speeds_of_user2:
+					speeds_of_user.append(item)
+				if speeds_of_user[l]==0:
+					speeds_of_user[l] = 1
+				else:
+					speeds_of_user[l] = 0
+				for k in range(len(speeds_of_user)):
+					if answers_list[k] != -1:
+						if answers_list[k] != speeds_of_user[k]:
 
+							login_attempt = False
+							break
+				if login_attempt:
+					hpwd = master_hpwd
+
+				decrypted_history_file = compute_history.decrypt_history_data_structure(encrypted_history_file, hpwd)
+				if decrypted_history_file[1]=="Nice Work!":
+
+					decrypted_history_file = compute_history.update_history_file(decrypted_history_file,user_input[1][i])
+					mu_list = myMath.compute_mu_list(decrypted_history_file)
+					sigma_list = myMath.compute_sigma_list(decrypted_history_file)
+					pwdArray = myMath.choose_hpwd()
+					r = pwdArray[2]
+					instruction_table = myMath.compute_instruction_table(mu_list, sigma_list, hpwd, m, r, q, pwd)
+					answers_list = instruction_table[1]
+					instruction_table = instruction_table[0]
+					encrypted_history_file = compute_history.encrypt_history_data_structure(decrypted_history_file, hpwd)
+					decrypted_history_file = ""
+					print 1
+					login_sucess = True
+					break
+			if not login_sucess:
+				print 0
 # Run the main function
 if __name__ == '__main__':
 	main()

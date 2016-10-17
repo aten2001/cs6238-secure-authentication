@@ -107,8 +107,7 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 
 	hpwd = Lagrange(x_list,y_list,q)
 	#hpwd = interpolate.lagrange(x_list,y_list)
-	#print "hpwd"
-	#print long(hpwd(0))
+
 
 
 	return hpwd
@@ -182,14 +181,6 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
-
-		print "ALPHA/BETA"
-		print alpha_x
-		print beta_x
-		print "REPEAT"
-		print alpha_y
-		print "PART 2"
-		print beta_y
 
 		g = G(2*i,r,pwd)%q
 		#g1 = G(2*i,r,pwd)%q

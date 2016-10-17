@@ -76,7 +76,7 @@ def decrypt_history_data_structure(encrypted_history_file, key):
     list_encrypted_features = encrypted_history_file[0]
     decrypted_features = decrypt_double_array_features(list_encrypted_features,key)
     decrypted_h_data_structure.append(decrypted_features)
-    print "ENCRYPTED Final string:  " +encrypted_history_file[1]
+    #print "ENCRYPTED Final string:  " +encrypted_history_file[1]
     decrypted_final_string = decrypt_string(encrypted_history_file[1],key)
     decrypted_h_data_structure.append(decrypted_final_string)
     return decrypted_h_data_structure
@@ -97,9 +97,11 @@ def decrypt_history_file_from_disk():
 
 def update_history_file(history_file,new_times):
     new_history = []
-    new_history.append(new_times)
-    for i in range(len(history_file[0])-1):
+    for i in range(1,len(history_file[0])):
+        for j in range(len(history_file[0][i])):
+            history_file[0][i][j] = int(history_file[0][i][j])
         new_history.append(history_file[0][i])
+    new_history.append(new_times)
     history_file[0] = new_history
     return history_file
 
