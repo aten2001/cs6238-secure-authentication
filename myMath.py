@@ -9,8 +9,6 @@ import scipy.interpolate as interpolate
 
 logging.basicConfig(filename='status.log', filemode='w', level=logging.DEBUG)
 
-
-
 k = 2
 t=10
 
@@ -18,8 +16,6 @@ t=10
 def find_polynomial(q,num_features):
 	#generate a bunch of x,y pairs
 	return 0;
-
-
 
 #takes in a polynomial represented as a list of coefficients
 def solveForY(coefficientsList, x):
@@ -156,12 +152,14 @@ def Pr(message,r):
 
 
 def isFeatureDistinguishing(mu,sigma):
+	x = abs(mu - t)
+	y = k*sigma
 	if abs(mu - t) > k*sigma:
 		return True
 	return False
 
 def isFeatureFast(mu,sigma):
-
+	x = mu + k*sigma
 	if mu + k*sigma < t:
 		return True
 	return False
