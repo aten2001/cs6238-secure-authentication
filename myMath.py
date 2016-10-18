@@ -161,7 +161,7 @@ def Pr(message,r):
 	return testValue
 
 
-#this function checks to see if a specific feature is 
+#this function checks to see if a specific feature is distinguishing for further processing
 def isFeatureDistinguishing(mu,sigma):
 	x = mu - t
 	if x < 0:
@@ -173,6 +173,7 @@ def isFeatureDistinguishing(mu,sigma):
 			return True
 	return False
 
+#this function decides if a distinguishing feature is considered fast (or the alpha side of the table)
 def isFeatureFast(mu,sigma):
 	x = mu + k*sigma
 	if mu + k*sigma < t:
@@ -187,6 +188,8 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 	instruction_table=[[0 for x in range(num_features)] for y in range(2)]
 	i = 1
 	answers_list = []
+
+	#this steps each feature in the instruction table and populates alpha and beta with the correct values
 	for coefficient in range(num_features):
 
 		alpha_x = Pr(2*i,r)%q
@@ -195,6 +198,8 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
 
+		#this is used to save all x,y values used to calculate the instruction tables, to show the TA during the demo that we are able to get the correct values of x and y
+		#this file is not used anywhere in our code
 		with open('alpha_instruction_table.txt', 'a') as myFile:
 			myFile.write(''+str(alpha_y)+'\n\n'+str(alpha_x)+'\n\n')
 
@@ -239,6 +244,9 @@ def testIsFeatureFast():
 	logging.debug("Expected Value: True actual value: " + str(isFeatureFast(5,1)))
 	logging.debug("Expected Value: False actual value " + str(isFeatureFast(3,5)))
 
+###########################Test function end#######################
+
+#this is our lambda function from teh paper, which deals with the x values from our x,y pairs and returns the fraction to our Lagrange function
 def lamb(x_array,i):
 	mult = 1
 	for j in range(len(x_array)):
@@ -246,16 +254,19 @@ def lamb(x_array,i):
 			mult = mult*(x_array[j]/(x_array[j]-x_array[i]))
 	return mult
 
+#this is our Lagrange function, which takes x,y pairs and q to recreate hpwd
 def Lagrange(x_array, y_array,q):
 	sum = 0
 	for i in range(len(y_array)):
 		test = y_array[i]%q
 		test1 = y_array[i]
+		#this calls the lambda function which creates uses the x values to create the coefficient to multiply y with
 		lam = lamb(x_array,i)
 		#sum = sum + lam*(y_array[i]%q) #wrong way I believe
 
 
 		#sum = sum + (lam*y_array[i])%q #this might be correct
+		#this is where we sum the array
 		sum = sum + (lam * y_array[i])
 	#return sum
 	return sum%q #wrong return
