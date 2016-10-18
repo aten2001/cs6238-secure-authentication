@@ -82,7 +82,7 @@ def polynomial_creation(hpwd, m):
 	polynomial_list = []
 	for i in range(0,m-1):
 		polynomial_list.append(random.randint(0,2**63))
-		append(random.randint(-100, 100))
+
 
 	polynomial_list.append(hpwd)
 	return polynomial_list
@@ -236,10 +236,10 @@ def testIsFeatureFast():
 	logging.debug("Expected Value: False actual value " + str(isFeatureFast(3,5)))
 
 def lamb(x_array,i):
-	mult = 1.0
+	mult = 1
 	for j in range(len(x_array)):
 		if j!=i:
-			mult = mult*(0-1.0*x_array[j]/(1.0*x_array[j]-x_array[i]))
+			mult = mult*(x_array[j]/(x_array[j]-x_array[i]))
 	return mult
 
 def Lagrange(x_array, y_array,q):
@@ -249,8 +249,8 @@ def Lagrange(x_array, y_array,q):
 		test1 = y_array[i]
 		lam = lamb(x_array,i)
 		#sum = sum + lam*(y_array[i]%q) #wrong way I believe
-		temp = (lam*y_array[i])
-		temp1 = temp%q
+
+
 		#sum = sum + (lam*y_array[i])%q #this might be correct
 		sum = sum + (lam * y_array[i])
 	#return sum
