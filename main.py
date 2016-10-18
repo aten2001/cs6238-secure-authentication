@@ -73,7 +73,8 @@ def main():
 	# check the rest of the user's inputs and see if he or she logged in correctly
 	second_time = False
 	for i in range(5, len(user_input[0])):
-		if i == 10:
+
+		if i == 14:
 			wesley = True
 		# we check each entry at this point to see if it is sucessful
 		# use password to unzip instruction table

@@ -158,12 +158,15 @@ def Pr(message,r):
 
 def isFeatureDistinguishing(mu,sigma):
 	x = mu - t
+	if mu == 9.2:
+		wesley = True
 	if x < 0:
 		x = -1 * x
 	y = abs(x)
 	y = k*sigma
-	if x > k*sigma:
-		return True
+	if x>k*sigma:
+		if x-(k*sigma)>0.01:
+			return True
 	return False
 
 def isFeatureFast(mu,sigma):
