@@ -27,6 +27,13 @@ def main():
 	error_correction = int(sys.argv[3])
 	x = sys.argv[1]
 	size_of_history = sys.argv[2]
+	history_file_demo = False
+	custom_key = ""
+	if len(sys.argv) > 4:
+		#run the program and only show encryption and decryption of history file
+		history_file_demo = True
+		custom_key = sys.argv[4]
+
 	user_input = input_parser.parse(x)
 	m = len(user_input[1][0])
 	# store the user's input passwords
@@ -50,8 +57,11 @@ def main():
 	instruction_table = instruction_table[0]
 
 	encrypted_history_file = compute_history.encrypt_history_data_structure(history,hpwd)
-	compute_history.write_to_disk(encrypted_history_file)
-
+	# compute_history.write_to_disk(encrypted_history_file)
+	# will demonstrate that the history file is encrypted and decrypted correctly
+	if history_file_demo:
+		encrypted_history_file = compute_history.encrypt_history_data_structure(history, custom_key)
+		compute_history.demostrate_history_file(encrypted_history_file, custom_key)
 
 
 	# ??? Do we need to print success for the first 5 runs?
@@ -108,7 +118,11 @@ def main():
 			instruction_table = myMath.compute_instruction_table(mu_list, sigma_list, hpwd, m, r, q, pwd)
 			answers_list = instruction_table[1]
 			instruction_table = instruction_table[0]
+
 			encrypted_history_file = compute_history.encrypt_history_data_structure(decrypted_history_file, hpwd)
+
+
+
 			decrypted_history_file = ""
 			print 1
 

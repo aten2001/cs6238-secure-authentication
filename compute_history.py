@@ -1,5 +1,5 @@
 
-import logging, main, csv
+import logging, main, csv,sys
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 import myMath
@@ -102,7 +102,6 @@ def decrypt_history_data_structure(encrypted_history_file, key):
     list_encrypted_features = encrypted_history_file[0]
     decrypted_features = decrypt_double_array_features(list_encrypted_features,key)
     decrypted_h_data_structure.append(decrypted_features)
-    #print "ENCRYPTED Final string:  " +encrypted_history_file[1]
     decrypted_final_string = decrypt_string(encrypted_history_file[1],key)
     decrypted_h_data_structure.append(decrypted_final_string)
     return decrypted_h_data_structure
@@ -132,16 +131,40 @@ def update_history_file(history_file,new_times):
     return history_file
 
 
-def testStrongEncryptFeatures():
+def testStrongEncryptFeatures(key):
     features = [1,2,3,4,6,1,2,3,5]
-    key = "yoyoyoyo"
+
     myFeatures = strong_encrypt_list_features(features,key)
 
     plain_text = strong_decrypt_list_features(myFeatures,key)
     print plain_text
 
+def writeStringToFile(text):
+    with open('history-file-demo.txt', 'a') as f:
+        f.write(str(text)+"\n")
+
+def print_decrypted_history_file(decrypted_history_file):
+    writeStringToFile("DECRYPTED HISTORY FILE OBJECT")
+    for object in decrypted_history_file:
+        writeStringToFile(object)
+
+def print_encrypted_history_file(encrypted_history_file):
+    writeStringToFile("ENCRYPTED TEXT FILE OBJECT")
+    for object in encrypted_history_file:
+        writeStringToFile(object)
+
+
+def demostrate_history_file(encrypted_history_file,custom_key):
+    with open('history-file-demo.txt', 'w') as f:
+        f.write("DEMO OF HISTORY FILE\n")
+    print_encrypted_history_file(encrypted_history_file)
+    decrypted_history_file = decrypt_history_data_structure(encrypted_history_file,custom_key)
+    print_decrypted_history_file(decrypted_history_file)
+
+
 if __name__ == '__main__':
-    testStrongEncryptFeatures()
+    testStrongEncryptFeatures(sys.argv[1])
+
 
 
 
