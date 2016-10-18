@@ -9,6 +9,7 @@ import scipy.interpolate as interpolate
 
 logging.basicConfig(filename='status.log', filemode='w', level=logging.DEBUG)
 
+#these are the constant values we were given in the assignment
 k = 2
 t=10
 
@@ -28,7 +29,7 @@ def solveForY(coefficientsList, x):
 
 	return sum
 
-
+#this is a test function used to debug SolveForY
 def testSolveForY():
 	coefficientsList = [2,3,7]
 	x = 3
@@ -42,13 +43,15 @@ def testSolveForY():
 def choose_hpwd():
 	#choose a q that is 160 bits or smaller randomly
 	q =number.getPrime(160)
+
+	#also choose an r and hpwd for the project
 	r = random.randint(0, 2 ** 160 - 1)
 	hpwd = random.randint(0,q-1) #generates a random number that is less than q
 
 	h = 6 #h is the number of previous login attempts to store in the history file
 	return [hpwd,q,r]
 
-
+#this computes the mean times of each feature of the history file to be used in determining if someone is distinct on a given feature
 def compute_mu_list(h):
 	x = numpy.mean(h[0],axis=0)
 	answer = []
@@ -59,19 +62,18 @@ def compute_mu_list(h):
 		answer.append(sum1/len(h[0][i]))
 	return x
 
+#this computes the standard deviation of times of each feature of the history file to be used in determining if someone is distinct on a given feature
 def compute_sigma_list(h):
 	x = numpy.std(h[0],axis=0)
 	return x
 
+#this is the controlling function which generates our instruction table
 def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 
 	#first need to create a polynomial function so we can create pairs
 	coefficientsList = polynomial_creation(hpwd,m)
 
 	# next generate a table of all correct values of the x,y pairings in a double array for both alpha and beta sides
-	#####padding will also be inserted into our list here as well, so the length of the password is hidden
-
-
 	instruction_table = calculate_instruction_table(coefficientsList, pwd, r, q,mu_list,sigma_list)
 
 
@@ -89,10 +91,12 @@ def polynomial_creation(hpwd, m):
 
 
 
-#should return a list of coefficients
+#this method generate hpwd from a users speeds, using the instruction table
 def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	y_list = []
 	x_list = []
+
+	#this next loop checks to see if a user is fast or slow, and chooses the coorespding entrie on the alpha or beta side of the instruction table
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
@@ -101,8 +105,6 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 
 			y = alpha - (G(2*(i+1),r,pwd)%q)
 			x = Pr(2*(i+1),r)
-
-
 		else:
 			beta = instruction_table[1][i]
 			y_list.append(beta - (G(2*(i+1)+1, r, pwd)%q))
@@ -111,6 +113,8 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 			y = beta - (G(2*(i+1)+1, r, pwd)%q)
 			x = Pr(2*(i+1)+1,r)
 
+		#this is storing the x,y value pairs we recreate from our table, to demo their correctness to the TA
+		#these are not used in any way within our system
 		with open('xy_table.txt', 'a') as myFile:
 			myFile.write('' + str(y) + '\n\n' + str(x) + '\n\n')
 
@@ -121,24 +125,26 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 
 	return hpwd
 
+#the G function is using a MD5 hash for implementation
 def G(message,r,pwd):
 
+	#this converts our pwd into a number value for use in our system
 	pwd = ''.join(str(ord(c)) for c in pwd)
-
 	pwdInt = int(pwd)
 
+	#we create a unique key which is a combination of the pwd and our random r value, as described in the paper
 	key = pwdInt ^ r
 
+	#now we use the password to act as the key for our hash
 	key = str(key)
 	h = MD5.new()
 	h.update(key)
 	key = h.hexdigest()
 	x = int(key, 16)
-	cipher = AES.new(key, AES.MODE_ECB)
-
 
 	return x
 
+#this function uses a AES cipher to create a permutation that works in selecting our x values, as per the research papers direction
 def Pr(message,r):
 
 	h = MD5.new()
@@ -155,14 +161,12 @@ def Pr(message,r):
 	return testValue
 
 
-
+#this function checks to see if a specific feature is 
 def isFeatureDistinguishing(mu,sigma):
 	x = mu - t
-	if mu == 9.2:
-		wesley = True
 	if x < 0:
 		x = -1 * x
-	y = abs(x)
+
 	y = k*sigma
 	if x>k*sigma:
 		if x-(k*sigma)>0.01:
