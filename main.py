@@ -51,6 +51,8 @@ def main():
 	pwd = user_input[0][0]
 	master_pwd = pwd
 	master_hpwd = hpwd
+
+
 	# figures out if we are slow or fast and computes the instruction table.
 	instruction_table = myMath.compute_instruction_table(mu_list, sigma_list, hpwd, m, r, q, pwd)
 	answers_list = instruction_table[1]
@@ -65,11 +67,11 @@ def main():
 
 
 	# ??? Do we need to print success for the first 5 runs?
-	print ("First Five Login Attempts: ")
+
 	for i in range(5):
 		print 1
 
-	print("Account Initialized.... Subsequent login attempts: ")
+
 	# check the rest of the user's inputs and see if he or she logged in correctly
 	second_time = False
 	for i in range(5, len(user_input[0])):
