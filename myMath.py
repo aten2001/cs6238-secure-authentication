@@ -53,6 +53,12 @@ def choose_hpwd():
 
 def compute_mu_list(h):
 	x = numpy.mean(h[0],axis=0)
+	answer = []
+	for i in range(len(h[0])):
+		sum1 = 0
+		for itm in h[0][i]:
+			sum1 = sum1 + itm
+		answer.append(sum1/len(h[0][i]))
 	return x
 
 def compute_sigma_list(h):
