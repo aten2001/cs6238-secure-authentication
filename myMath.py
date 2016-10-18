@@ -44,6 +44,7 @@ def choose_hpwd():
 	q =number.getPrime(160)
 	r = random.randint(0, 2 ** 160 - 1)
 	hpwd = random.randint(0,q-1) #generates a random number that is less than q
+
 	h = 6 #h is the number of previous login attempts to store in the history file
 	return [hpwd,q,r]
 
@@ -95,14 +96,23 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
-			#g = G(2*(i+1),r,pwd)%q
-			#g1 = G(2 * i, r, pwd) % q
 			y_list.append(alpha - (G(2*(i+1),r,pwd)%q))
 			x_list.append(Pr(2*(i+1),r))
+
+			y = alpha - (G(2*(i+1),r,pwd)%q)
+			x = Pr(2*(i+1),r)
+
+
 		else:
 			beta = instruction_table[1][i]
 			y_list.append(beta - (G(2*(i+1)+1, r, pwd)%q))
 			x_list.append(Pr(2*(i+1)+1,r))
+
+			y = beta - (G(2*(i+1)+1, r, pwd)%q)
+			x = Pr(2*(i+1)+1,r)
+
+		with open('xy_table.txt', 'a') as myFile:
+			myFile.write('' + str(y) + '\n\n' + str(x) + '\n\n')
 
 	hpwd = Lagrange(x_list,y_list,q)
 	#hpwd = interpolate.lagrange(x_list,y_list)
@@ -146,12 +156,17 @@ def Pr(message,r):
 
 
 
-
 def isFeatureDistinguishing(mu,sigma):
-	x = abs(mu - t)
+	x = mu - t
+	if mu == 9.2:
+		wesley = True
+	if x < 0:
+		x = -1 * x
+	y = abs(x)
 	y = k*sigma
-	if abs(mu - t) > k*sigma:
-		return True
+	if x>k*sigma:
+		if x-(k*sigma)>0.01:
+			return True
 	return False
 
 def isFeatureFast(mu,sigma):
@@ -175,6 +190,12 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 
 		alpha_y = solveForY(coefficientsList,alpha_x)
 		beta_y = solveForY(coefficientsList,beta_x)
+
+		with open('alpha_instruction_table.txt', 'a') as myFile:
+			myFile.write(''+str(alpha_y)+'\n\n'+str(alpha_x)+'\n\n')
+
+		with open('beta_instruction_table.txt', 'a') as myFile:
+			myFile.write(''+str(beta_y)+'\n\n'+str(beta_x)+'\n\n')
 
 		g = G(2*i,r,pwd)%q
 		#g1 = G(2*i,r,pwd)%q
@@ -228,6 +249,8 @@ def Lagrange(x_array, y_array,q):
 		test1 = y_array[i]
 		lam = lamb(x_array,i)
 		#sum = sum + lam*(y_array[i]%q) #wrong way I believe
+
+
 		#sum = sum + (lam*y_array[i])%q #this might be correct
 		sum = sum + (lam * y_array[i])
 	#return sum
