@@ -123,18 +123,11 @@ def G(message,r,pwd):
 	h = MD5.new()
 	h.update(key)
 	key = h.hexdigest()
-
+	x = int(key, 16)
 	cipher = AES.new(key, AES.MODE_ECB)
 
-	BS = 16
-	pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
-	s = pad(str(message))
-	testValue = cipher.encrypt(s)
 
-	testValue = ''.join(str(ord(c)) for c in testValue)
-	testValue = int(testValue)
-
-	return testValue
+	return x
 
 def Pr(message,r):
 
