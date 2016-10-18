@@ -1,5 +1,5 @@
 
-import logging, main
+import logging, main, csv
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 import myMath
@@ -31,6 +31,24 @@ def encrypt_list_features(list_features,key):
         encrypted_features.append(encrypt_string(feature,key))
     return encrypted_features
 
+def strong_encrypt_list_features(list_features,key):
+    encrypted_features = []
+    first_string = list_features[0]
+    csv = str(first_string)
+    for i in range(1,len(list_features)):
+        feature = list_features[i]
+        csv = csv + ","+ str(feature)
+    cipher_text = encrypt_string(csv,key)
+    encrypted_features.append(cipher_text)
+    plain_text = decrypt_string(cipher_text,key)
+    return encrypted_features
+
+def strong_decrypt_list_features(list_features,key):
+    decrypted_features = []
+    cipher_text = list_features[0]
+    plain_text = decrypt_string(cipher_text,key)
+    return plain_text.split(",")
+
 def decrypt_list_features(list_encrypt_features,key):
     decrypted_features = []
     for feature in list_encrypt_features:
@@ -40,10 +58,10 @@ def decrypt_list_features(list_encrypt_features,key):
 
 
 def decrypt_string(encrypted_h_file, key):
-    h = MD5.new()
-    h.update(str(key))
-    mykey = h.hexdigest()
-    cipher = AES.new(mykey, AES.MODE_ECB)
+    # h = MD5.new()
+    # h.update(str(key))
+    # mykey = h.hexdigest()
+    cipher = AES.new(prepareKey(key), AES.MODE_ECB)
     unpad = lambda s: s[:-ord(s[len(s) - 1:])]
     plaintext_history_file = cipher.decrypt(encrypted_h_file)
     logging.debug("DECRYPTED STRING: "+ plaintext_history_file)
@@ -52,13 +70,16 @@ def decrypt_string(encrypted_h_file, key):
 def encrypt_double_array_features(dub_array_features, key):
     encrypted_dub_array = []
     for list in dub_array_features:
-        encrypted_dub_array.append(encrypt_list_features(list,key))
+        # BRIAN made changes here to support the more secure encryption of the history file
+        encrypted_dub_array.append(strong_encrypt_list_features(list,key))
     return encrypted_dub_array
+
 
 def decrypt_double_array_features(encrypted_double_array, key):
     decr_dub_array_features = []
     for list in encrypted_double_array:
-        decr_dub_array_features.append(decrypt_list_features(list,key))
+        #BRIAN made changes here to support the more secure encryption of the history file
+        decr_dub_array_features.append(strong_decrypt_list_features(list,key))
     return decr_dub_array_features
 
 
@@ -106,10 +127,16 @@ def update_history_file(history_file,new_times):
     return history_file
 
 
-if __name__ == '__main__':
-    print "history file before encryption: "
+def testStrongEncryptFeatures():
+    features = [1,2,3,4,6,1,2,3,5]
+    key = "yoyoyoyo"
+    myFeatures = strong_encrypt_list_features(features,key)
 
-    decrypt_history_file_from_disk()
+    plain_text = strong_decrypt_list_features(myFeatures,key)
+    print plain_text
+
+if __name__ == '__main__':
+    testStrongEncryptFeatures()
 
 
 
