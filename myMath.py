@@ -41,13 +41,10 @@ def testSolveForY():
 #during the intitialization phase of the user's first five inputs, we need to generate a random hpwd
 def choose_hpwd():
 	#choose a q that is 160 bits or smaller randomly
-	#TODO adjust q appropriately
 	q =number.getPrime(160)
 	r = random.randint(0, 2 ** 160 - 1)
-	#TODO choose random password
 	hpwd = random.randint(0,q-1) #generates a random number that is less than q
 	h = 6 #h is the number of previous login attempts to store in the history file
-
 	return [hpwd,q,r]
 
 

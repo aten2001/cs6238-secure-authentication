@@ -31,6 +31,9 @@ def encrypt_list_features(list_features,key):
         encrypted_features.append(encrypt_string(feature,key))
     return encrypted_features
 
+
+#encrypts the history file list object so that an attacker can not gain information on a user's password
+#length
 def strong_encrypt_list_features(list_features,key):
     encrypted_features = []
     first_string = list_features[0]
@@ -43,6 +46,8 @@ def strong_encrypt_list_features(list_features,key):
     plain_text = decrypt_string(cipher_text,key)
     return encrypted_features
 
+#decrypts a given list object of features and returns as a list object where each entry in the
+#list is a different feature value
 def strong_decrypt_list_features(list_features,key):
     decrypted_features = []
     cipher_text = list_features[0]
