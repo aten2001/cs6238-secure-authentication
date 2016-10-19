@@ -119,8 +119,8 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 			myFile.write('' + str(y) + '\n\n' + str(x) + '\n\n')
 
 	hpwd = Lagrange(x_list,y_list,q)
-	#hpwd = interpolate.lagrange(x_list,y_list)
-
+	#li = interpolate.barycentric_interpolate(x_list,y_list,0)
+	#hpwd = li
 
 
 	return hpwd
@@ -159,6 +159,7 @@ def Pr(message,r):
 	testValue = ''.join(str(ord(c)) for c in testValue)
 	testValue = int(testValue)
 	#return testValue
+
 	return message
 
 #this function checks to see if a specific feature is distinguishing for further processing
