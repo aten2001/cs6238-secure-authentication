@@ -44,7 +44,7 @@ def main():
 	# need to choose a random hardened password and r and q
 	pwdArray = myMath.choose_hpwd() #this function generates all the random numbers needed for the assignment
 	hpwd = pwdArray[0]
-	print hpwd
+
 	q = pwdArray[1]
 	r = pwdArray[2]
 
