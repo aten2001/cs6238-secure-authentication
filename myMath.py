@@ -118,10 +118,10 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 		with open('xy_table.txt', 'a') as myFile:
 			myFile.write('' + str(y) + '\n\n' + str(x) + '\n\n')
 
-	hpwd = Lagrange(x_list,y_list,q)
+	#hpwd = Lagrange(x_list,y_list,q)
 	#li = interpolate.barycentric_interpolate(x_list,y_list,0)
 	#hpwd = li
-
+	hpwd = 0
 
 	return hpwd
 
