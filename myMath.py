@@ -100,17 +100,17 @@ def reconstruct_polynomial(instruction_table,speeds_of_user,q,r,pwd):
 	for i in range(len(speeds_of_user)):
 		if speeds_of_user[i] == 0:
 			alpha = instruction_table[0][i]
-			y_list.append(alpha - (G(2*(i+1),r,pwd)%q))
+			y_list.append((alpha - G(2*(i+1),r,pwd))%q)
 			x_list.append(Pr(2*(i+1),r))
 
-			y = alpha - (G(2*(i+1),r,pwd)%q)
+			y = (alpha - G(2*(i+1),r,pwd))%q
 			x = Pr(2*(i+1),r)
 		else:
 			beta = instruction_table[1][i]
-			y_list.append(beta - (G(2*(i+1)+1, r, pwd)%q))
+			y_list.append((beta - G(2*(i+1)+1, r, pwd))%q)
 			x_list.append(Pr(2*(i+1)+1,r))
 
-			y = beta - (G(2*(i+1)+1, r, pwd)%q)
+			y = (beta - G(2*(i+1)+1, r, pwd))%q
 			x = Pr(2*(i+1)+1,r)
 
 		#this is storing the x,y value pairs we recreate from our table, to demo their correctness to the TA
@@ -206,12 +206,10 @@ def calculate_instruction_table(coefficientsList, pwd, r, q, mu_list,sigma_list)
 		with open('beta_instruction_table.txt', 'a') as myFile:
 			myFile.write(''+str(beta_y)+'\n\n'+str(beta_x)+'\n\n')
 
-		g = G(2*i,r,pwd)%q
-		#g1 = G(2*i,r,pwd)%q
 
-		alpha = alpha_y + g
-		g = G(2 * i + 1, r, pwd)%q
-		beta = beta_y + g
+		alpha = (alpha_y + G(2*i,r,pwd))%q
+
+		beta = (beta_y + G(2 * i + 1, r, pwd))%q
 
 		# if the feature is distinguishing only populate one side of the table with a correct value
 		if isFeatureDistinguishing(mu_list[i-1],sigma_list[i-1]) == False:
