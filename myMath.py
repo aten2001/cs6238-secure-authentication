@@ -46,7 +46,7 @@ def choose_hpwd():
 
 	#also choose an r and hpwd for the project
 	r = random.randint(0, 2 ** 160 - 1)
-	hpwd = random.randint(0,q-1) #generates a random number that is less than q
+	hpwd = random.randint(0,int(q/4)) #generates a random number that is less than q
 
 	h = 6 #h is the number of previous login attempts to store in the history file
 	return [hpwd,q,r]
@@ -83,8 +83,8 @@ def compute_instruction_table(mu_list,sigma_list,hpwd, m, r ,q,pwd):
 def polynomial_creation(hpwd, m):
 	polynomial_list = []
 	for i in range(0,m-1):
-		polynomial_list.append(random.randint(0,2**63))
-
+		#polynomial_list.append(random.randint(0,2**63))
+		polynomial_list.append(random.randint(0,10))
 
 	polynomial_list.append(hpwd)
 	return polynomial_list
@@ -158,8 +158,8 @@ def Pr(message,r):
 
 	testValue = ''.join(str(ord(c)) for c in testValue)
 	testValue = int(testValue)
-	return testValue
-
+	#return testValue
+	return message
 
 #this function checks to see if a specific feature is distinguishing for further processing
 def isFeatureDistinguishing(mu,sigma):
@@ -262,12 +262,14 @@ def Lagrange(x_array, y_array,q):
 		lam = lamb(x_array,i)
 		#sum = sum + lam*(y_array[i]%q) #wrong way I believe
 
-
+		#sum = (sum + lam * y_array[i]) % q
 		#sum = sum + (lam*y_array[i])%q #this might be correct
+		#sum = sum + ((lam%q) * y_array[i])  # this might be correct
 		#this is where we sum the array
 		sum = sum + (lam * y_array[i])
-	#return sum
-	return sum%q #wrong return
+	#sum = sum%q
+	return sum
+	#return sum%q #wrong return
 
 
 
